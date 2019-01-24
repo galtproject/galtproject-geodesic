@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "10"
+
+sudo: required
+
+dist: trusty
+
+install:
+  - npm install
+  - npm install -g eslint solium
+
+script:
+  - npm run eslint && npm run solium && npm run test
+

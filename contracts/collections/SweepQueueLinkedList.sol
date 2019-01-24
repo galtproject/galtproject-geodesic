@@ -10,13 +10,12 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-
-import "./LinkedList.sol";
+import "@galtproject/libs/contracts/collections/LinkedList.sol";
 import "../structs/SweepEvent.sol";
 import "../utils/SweepEventUtils.sol";
+
 
 library SweepQueueLinkedList {
 

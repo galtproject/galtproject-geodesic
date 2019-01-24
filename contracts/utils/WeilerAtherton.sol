@@ -10,14 +10,11 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
-
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
+pragma solidity 0.5.3;
 
 import "./MartinezRueda.sol";
 import "./PolygonUtils.sol";
-//import "./SegmentUtils.sol";
-//import "./VectorUtils.sol";
+
 
 library WeilerAtherton {
   using MartinezRueda for MartinezRueda.State;
@@ -164,7 +161,7 @@ library WeilerAtherton {
     }
   }
 
-  function addIntersectedPointsToPolygon(State storage state, Polygon storage polygon, int256[2] point, bytes32 pointHash) private returns (bool) {
+  function addIntersectedPointsToPolygon(State storage state, Polygon storage polygon, int256[2] memory point, bytes32 pointHash) private returns (bool) {
     // is segment points exists in polygon
 
     bytes32 pointToReplace;

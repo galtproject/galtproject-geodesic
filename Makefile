@@ -8,10 +8,13 @@ compile: cleanup
 	tput bel
 
 validate:
-	npm run solium
+	npm run ethlint
 	npm run eslint
 
-retest: cleanup test
+test:
+	-npm test
+	tput bel
+
 
 benchmark:
 	for file in `ls ./benchmark`; do echo \\n$${file}\\n; ./node_modules/.bin/truffle exec benchmark/$${file} --network test -c; done

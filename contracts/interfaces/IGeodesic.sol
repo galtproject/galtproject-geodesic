@@ -10,29 +10,28 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
-
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
+pragma solidity 0.5.3;
 
 import "../utils/LandUtils.sol";
+
 
 contract IGeodesic {
   LandUtils.LatLonData private geodesicData;
   event ContourAreaCalculate(uint256[] contour, uint256 area);
 
-  function cacheGeohashToLatLon(uint256 _geohash) public returns (int256[2]);
+  function cacheGeohashToLatLon(uint256 _geohash) public returns (int256[2] memory);
 
-  function cacheGeohashListToLatLon(uint256[] _geohashList) public;
+  function cacheGeohashListToLatLon(uint256[] memory _geohashList) public;
 
-  function cacheGeohashToLatLonAndUtm(uint256 _geohash) public returns (int256[3]);
+  function cacheGeohashToLatLonAndUtm(uint256 _geohash) public returns (int256[3] memory);
 
-  function getCachedLatLonByGeohash(uint256 _geohash) public returns (int256[2]);
+  function getCachedLatLonByGeohash(uint256 _geohash) public returns (int256[2] memory);
 
-  function cacheLatLonToGeohash(int256[2] point, uint8 precision) public returns (uint256);
+  function cacheLatLonToGeohash(int256[2] memory point, uint8 precision) public returns (uint256);
 
-  function cacheLatLonListToGeohash(int256[2][] _pointList, uint8 precision) public;
+  function cacheLatLonListToGeohash(int256[2][] memory _pointList, uint8 precision) public;
 
-  function getCachedGeohashByLatLon(int256[2] point, uint8 precision) public returns (uint256);
+  function getCachedGeohashByLatLon(int256[2] memory point, uint8 precision) public returns (uint256);
 
-  function calculateContourArea(uint256[] contour) external returns (uint256 area);
+  function calculateContourArea(uint256[] calldata contour) external returns (uint256 area);
 }

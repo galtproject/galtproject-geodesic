@@ -10,12 +10,11 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
+import "@galtproject/libs/contracts/collections/RedBlackTree.sol";
 import "../utils/PointUtils.sol";
-import "./RedBlackTree.sol";
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
 
 library PointRedBlackTree {
   using RedBlackTree for RedBlackTree.Tree;
@@ -27,7 +26,7 @@ library PointRedBlackTree {
   
   uint internal constant ZERO = 0;
 
-  function find(PointsTree storage points, int256[2] value) public view returns (uint) {
+  function find(PointsTree storage points, int256[2] memory value) public view returns (uint) {
     uint _key = points.tree.root;
     while (_key != ZERO) {
       int8 compareResult = PointUtils.comparePoints(value, points.values[_key]);
@@ -43,7 +42,7 @@ library PointRedBlackTree {
     return ZERO;
   }
   
-  function insert(PointsTree storage points, uint key, int256[2] value) public {
+  function insert(PointsTree storage points, uint key, int256[2] memory value) public {
     uint y = ZERO;
     uint x = points.tree.root;
     while (x != ZERO) {
@@ -76,7 +75,7 @@ library PointRedBlackTree {
     return points.tree.inserted + 1;
   }
   
-  function pop(PointsTree storage points) public returns(uint256 id, int256[2] value) {
+  function pop(PointsTree storage points) public returns(uint256 id, int256[2] memory value) {
     id = points.tree.pop();
     value = points.values[id];
   }

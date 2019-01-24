@@ -1,3 +1,6 @@
+pragma solidity 0.5.3;
+
+
 library GeohashUtils {
   uint256 constant C1_GEOHASH = 31;
   uint256 constant C2_GEOHASH = 1023;

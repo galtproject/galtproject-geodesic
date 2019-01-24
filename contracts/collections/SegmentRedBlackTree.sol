@@ -10,12 +10,12 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
+
+import "@galtproject/libs/contracts/collections/RedBlackTree.sol";
 import "../utils/SegmentUtils.sol";
-import "./RedBlackTree.sol";
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
 
 library SegmentRedBlackTree {
   using RedBlackTree for RedBlackTree.Tree;
@@ -28,7 +28,7 @@ library SegmentRedBlackTree {
   
   uint internal constant ZERO = 0;
 
-  function find(SegmentsTree storage segments, int256[2][2] value) public returns (uint) {
+  function find(SegmentsTree storage segments, int256[2][2] memory value) public returns (uint) {
     uint _key = segments.tree.root;
     while (_key != ZERO) {
       int8 compareResult = SegmentUtils.compareSegments(segments.sweepline, value, segments.values[_key]);
@@ -44,7 +44,7 @@ library SegmentRedBlackTree {
     return ZERO;
   }
   
-  function insert(SegmentsTree storage segments, uint key, int256[2][2] value) public {
+  function insert(SegmentsTree storage segments, uint key, int256[2][2] memory value) public {
     uint y = ZERO;
     uint x = segments.tree.root;
     while (x != ZERO) {
@@ -85,7 +85,7 @@ library SegmentRedBlackTree {
     return segments.tree.inserted + 1;
   }
 
-  function pop(SegmentsTree storage segments) public returns(uint256 id, int256[2][2] value) {
+  function pop(SegmentsTree storage segments) public returns(uint256 id, int256[2][2] memory value) {
     id = segments.tree.pop();
     value = segments.values[id];
   }

@@ -10,12 +10,11 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
 import "@galtproject/math/contracts/MathUtils.sol";
 import "../structs/SweepEvent.sol";
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
 
 library SweepEventUtils {
 
@@ -56,11 +55,11 @@ library SweepEventUtils {
   /**
  * Signed area of the triangle (p0, p1, p2)
  */
-  function signedArea(int256[2] p0, int256[2] p1, int256[2] p2) internal pure returns(int256) {
+  function signedArea(int256[2] memory p0, int256[2] memory p1, int256[2] memory p2) internal pure returns(int256) {
     return (p0[0] - p2[0]) * (p1[1] - p2[1]) - (p1[0] - p2[0]) * (p0[1] - p2[1]);
   }
 
-  function isBelow(SweepEvent.Store storage store, SweepEvent.Item storage self, int256[2] p) internal view returns(bool) {
+  function isBelow(SweepEvent.Store storage store, SweepEvent.Item storage self, int256[2] memory p) internal view returns(bool) {
     int256[2] memory p0 = self.point;
     int256[2] memory p1 = store.sweepById[self.otherEvent].point;
     return self.left
@@ -68,7 +67,7 @@ library SweepEventUtils {
     : (p1[0] - p[0]) * (p0[1] - p[1]) - (p0[0] - p[0]) * (p1[1] - p[1]) > 0;
   }
   
-  function isAbove(SweepEvent.Store storage store, SweepEvent.Item storage self, int256[2] p) internal view returns(bool) {
+  function isAbove(SweepEvent.Store storage store, SweepEvent.Item storage self, int256[2] memory p) internal view returns(bool) {
     return !isBelow(store, self, p);
   }
 
@@ -116,7 +115,7 @@ library SweepEventUtils {
     return compareEvents(store, le1, le2) == 1 ? int8(1) : -1;
   }
 
-  function equals(int256[2] p1, int256[2] p2) internal pure returns (bool) {
+  function equals(int256[2] memory p1, int256[2] memory p2) internal pure returns (bool) {
     if (p1[0] == p2[0] && p1[1] == p2[1]) {
       return true;
     }

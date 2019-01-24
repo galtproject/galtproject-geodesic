@@ -1,8 +1,7 @@
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-//pragma experimental ABIEncoderV2;
+pragma solidity 0.5.3;
 
 import "../utils/GeohashUtils.sol";
+
 
 contract MockGeohashUtils {
   event LogPrecisionResult(uint8 result);

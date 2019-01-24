@@ -10,17 +10,15 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-//pragma experimental ABIEncoderV2;
-
-import "../collections/RedBlackTree.sol";
 import "@galtproject/math/contracts/MathUtils.sol";
+import "@galtproject/libs/contracts/collections/LinkedList.sol";
+import "@galtproject/libs/contracts/collections/RedBlackTree.sol";
 import "./PolygonUtils.sol";
 import "../collections/SweepLineRedBlackTree.sol";
 import "../collections/SweepQueueLinkedList.sol";
-import "../collections/LinkedList.sol";
+
 
 // TODO: try to use direct search of intersections instead of MartinezRueda
 library MartinezRueda {
@@ -435,7 +433,7 @@ library MartinezRueda {
     return 3;
   }
 
-  function divideSegment(State storage state, uint256 seId, int256[2] p) private {
+  function divideSegment(State storage state, uint256 seId, int256[2] memory p) private {
     SweepEvent.Item storage se = state.store.sweepById[seId];
 
     uint rId = state.eventQueue.count + 1;
@@ -478,7 +476,7 @@ library MartinezRueda {
   }
 
   //function to convert back to regular point form:
-  function toPoint(int256[2] p, int256 s, int256[2] d) private returns (int256[2]) {
+  function toPoint(int256[2] memory p, int256 s, int256[2] memory d) private returns (int256[2] memory) {
     return [
       p[0] + s * d[0] / 1 szabo,
       p[1] + s * d[1] / 1 szabo
@@ -488,14 +486,14 @@ library MartinezRueda {
    * Finds the magnitude of the cross product of two vectors (if we pretend
    * they're in three dimensions)
    */
-  function crossProduct(int256[2] a, int256[2] b) private returns (int256) {
+  function crossProduct(int256[2] memory a, int256[2] memory b) private returns (int256) {
     return (a[0] * b[1]) - (a[1] * b[0]);
   }
 
   /**
  * Finds the dot product of two vectors.
  */
-  function dotProduct(int256[2] a, int256[2] b) private returns (int256) {
+  function dotProduct(int256[2] memory a, int256[2] memory b) private returns (int256) {
     return (a[0] * b[0]) + (a[1] * b[1]);
   }
 
@@ -519,7 +517,7 @@ library MartinezRueda {
   event SegmentIntersectionWay(string way, int256 input);
   event SegmentIntersectionSqrKross(int256 c, int256 toProductVb, int256 s, int256 toProductVa, int256 t);
 
-  function segmentIntersection(int256[2] a1, int256[2] a2, int256[2] b1, int256[2] b2) private returns (int256[2][2] result) {
+  function segmentIntersection(int256[2] memory a1, int256[2] memory a2, int256[2] memory b1, int256[2] memory b2) private returns (int256[2][2] memory result) {
     // The algorithm expects our lines in the form P + sd, where P is a point,
     // s is on the interval [0, 1], and d is a vector.
     // We are passed two points. P can be the first point of each pair. The
@@ -597,7 +595,7 @@ library MartinezRueda {
     return segmentIntersectionStage2(a1, va, vb, e, sqrLenA);
   }
 
-  function segmentIntersectionStage2(int256[2] a1, int256[2] memory va, int256[2] memory vb, int256[2] memory e, int256 sqrLenA) private returns (int256[2][2] result) {
+  function segmentIntersectionStage2(int256[2] memory a1, int256[2] memory va, int256[2] memory vb, int256[2] memory e, int256 sqrLenA) private returns (int256[2][2] memory result) {
     int256 sa = divideToSzabo(dotProduct(va, e), sqrLenA);
     int256 sb = divideToSzabo(sa + dotProduct(va, vb), sqrLenA);
     int256 smin = MathUtils.minInt(sa, sb);

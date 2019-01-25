@@ -74,7 +74,7 @@ library LandUtils {
       capacity--;
 
       num = _geohash5 >> 5 * capacity;
-      cd = uint256(bytes32(num) & bytes32(31));
+      cd = uint256(bytes32(uint256(num)) & bytes32(uint256(31)));
 
       for (uint8 i = 0; i < mask_arr.length; i++) {
         mask = mask_arr[i];
@@ -143,7 +143,7 @@ library LandUtils {
         bit += 1;
       } else {
         precision -= 1;
-        geohash += uint256(bytes32(ch) & bytes32(31)) << 5 * precision;
+        geohash += uint256(bytes32(uint256(ch)) & bytes32(uint256(31))) << 5 * precision;
         bit = 0;
         ch = 0;
       }

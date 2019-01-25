@@ -58,7 +58,7 @@ library GeohashUtils {
 
     uint256 num = _input;
     bytes32 output;
-    bytes32 fiveOn = bytes32(31);
+    bytes32 fiveOn = bytes32(uint256(31));
     uint8 counter = 0;
 
     while (num != 0) {

@@ -317,8 +317,6 @@ library WeilerAtherton {
       nextPointHash = state.clippingPolygon.pointByHash[curPointHash].prevPoint;
       clippingDirection = Direction.BACKWARD;
     } else {
-      emit LogFailed("Not found valid next point in clipping polygon");
-      return;
       require(false, "Not found valid next point in clipping polygon");
     }
 
@@ -353,8 +351,6 @@ library WeilerAtherton {
           //successful finish
           return true;
         } else {
-          emit LogFailed("End point of result polygon not equals to start point");
-          return;
           require(false, "End point of result polygon not equals to start point");
         }
       }

@@ -549,12 +549,12 @@ library MartinezRueda {
       int256 s = divideToSzabo(crossProduct(e, vb), kross);
       if (s < 0 || s > 1 szabo) {
         // not on line segment a
-        return;
+        return result;
       }
       int256 t = divideToSzabo(crossProduct(e, va), kross);
       if (t < 0 || t > 1 szabo) {
         // not on line segment b
-        return;
+        return result;
       }
       if (s == 0 || s == 1 szabo) {
         //        emit SegmentIntersectionWay("s == 0 || s == 1", s);
@@ -562,7 +562,7 @@ library MartinezRueda {
         //        if (!noEndpointTouch) {
         result[0] = toPoint(a1, s, va);
         //        }
-        return;
+        return result;
       }
       if (t == 0 || t == 1 szabo) {
         //        emit SegmentIntersectionWay("t == 0 || t == 1", t);
@@ -570,11 +570,11 @@ library MartinezRueda {
         //        if (!noEndpointTouch) {
         result[0] = toPoint(b1, t, vb);
         //        }
-        return;
+        return result;
       }
       //      emit SegmentIntersectionWay("sqrKross > 0", sqrKross);
       result[0] = toPoint(a1, s, va);
-      return;
+      return result;
     }
 
     // If we've reached this point, then the lines are either parallel or the
@@ -589,7 +589,7 @@ library MartinezRueda {
 
     if (sqrKross > 0 /* EPS * sqLenB * sqLenE */) {
       // Lines are just parallel, not the same. No overlap.
-      return;
+      return result;
     }
 
     return segmentIntersectionStage2(a1, va, vb, e, sqrLenA);
@@ -611,7 +611,7 @@ library MartinezRueda {
         //        emit SegmentIntersectionWay("smin == 1", smax);
         result[0] = toPoint(a1, smin > 0 ? smin : 0, va);
         //        }
-        return;
+        return result;
       }
 
       if (smax == 0) {
@@ -619,7 +619,7 @@ library MartinezRueda {
         //        emit SegmentIntersectionWay("smax == 0", smin);
         result[0] = toPoint(a1, smax < 1 szabo ? smax : 1 szabo, va);
         //        }
-        return;
+        return result;
       }
 
       //      if (noEndpointTouch && smin == 0 && smax == 1) {
@@ -634,7 +634,7 @@ library MartinezRueda {
       ];
     }
 
-    return;
+    return result;
   }
 
   event ResultPush(uint256 sweepId, int256[2] point, bool left, bool inResult, bool isSubject, uint256 contourId);

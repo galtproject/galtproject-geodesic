@@ -1,11 +1,7 @@
 const MockMartinezRueda = artifacts.require('./mocks/MockMartinezRueda.sol');
 
 const _ = require('lodash');
-const Web3 = require('web3');
-const chai = require('chai');
 const pIteration = require('p-iteration');
-const chaiAsPromised = require('chai-as-promised');
-const chaiBigNumber = require('chai-bignumber')(Web3.utils.BN);
 const {
   initHelperWeb3,
   initHelperArtifacts,
@@ -16,18 +12,10 @@ const {
   clearLibCache
 } = require('../helpers');
 
-const web3 = new Web3(MockMartinezRueda.web3.currentProvider);
+const { web3 } = MockMartinezRueda;
 
 initHelperWeb3(web3);
 initHelperArtifacts(artifacts);
-
-// TODO: move to helpers
-Web3.utils.BN.prototype.equal = Web3.utils.BN.prototype.eq;
-Web3.utils.BN.prototype.equals = Web3.utils.BN.prototype.eq;
-
-chai.use(chaiAsPromised);
-chai.use(chaiBigNumber);
-chai.should();
 
 contract('MartinezRueda', ([coreTeam]) => {
   before(clearLibCache);

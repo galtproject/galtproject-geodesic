@@ -2,9 +2,8 @@ const LandUtils = artifacts.require('./utils/LandUtils.sol');
 const MockLandUtils = artifacts.require('./mocks/MockLandUtils.sol');
 
 const pIteration = require('p-iteration');
-const Web3 = require('web3');
 
-const web3 = new Web3(LandUtils.web3.currentProvider);
+const { web3 } = LandUtils;
 
 contract('LandUtils', ([deployer]) => {
   beforeEach(async function() {

@@ -1,8 +1,7 @@
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-//pragma experimental ABIEncoderV2;
+pragma solidity 0.5.3;
 
 import "../utils/WeilerAtherton.sol";
+
 
 contract MockWeilerAtherton {
   using WeilerAtherton for WeilerAtherton.State;
@@ -13,11 +12,11 @@ contract MockWeilerAtherton {
     weilerAtherton.initWeilerAtherton();
   }
   
-  function addPointToSubjectPolygon(int256[2] point) public {
+  function addPointToSubjectPolygon(int256[2] memory point) public {
     weilerAtherton.martinezRueda.subject.points.push(point);
   }
 
-  function addPointToClippingPolygon(int256[2] point) public {
+  function addPointToClippingPolygon(int256[2] memory point) public {
     weilerAtherton.martinezRueda.clipping.points.push(point);
   }
   
@@ -66,7 +65,7 @@ contract MockWeilerAtherton {
     return weilerAtherton.resultPolygons[polygonIndex].points.length;
   }
 
-  function getResultPolygonPoint(uint256 polygonIndex, uint256 pointIndex) public returns(int256[2]) {
+  function getResultPolygonPoint(uint256 polygonIndex, uint256 pointIndex) public returns(int256[2] memory) {
     return weilerAtherton.resultPolygons[polygonIndex].points[pointIndex];
   }
 
@@ -78,7 +77,7 @@ contract MockWeilerAtherton {
     return weilerAtherton.subjectPolygonOutput.points.length;
   }
 
-  function getSubjectPolygonOutputPoint(uint256 pointIndex) public returns(int256[2]) {
+  function getSubjectPolygonOutputPoint(uint256 pointIndex) public returns(int256[2] memory) {
     return weilerAtherton.subjectPolygonOutput.points[pointIndex];
   }
 }

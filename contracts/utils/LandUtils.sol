@@ -10,13 +10,12 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
 import "@galtproject/math/contracts/MathUtils.sol";
-import "./GeohashUtils.sol";
 import "@galtproject/math/contracts/TrigonometryUtils.sol";
+import "./GeohashUtils.sol";
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
 
 library LandUtils {
 
@@ -29,8 +28,8 @@ library LandUtils {
   }
 
   function latLonIntervalToLatLon(
-    int256[2] latInterval,
-    int256[2] lonInterval
+    int256[2] memory latInterval,
+    int256[2] memory lonInterval
   )
   public
   pure
@@ -40,7 +39,7 @@ library LandUtils {
     lon = (lonInterval[0] + lonInterval[1]) / 2;
   }
 
-  function geohash5ToLatLonArr(uint256 _geohash5) public pure returns (int256[2]) {
+  function geohash5ToLatLonArr(uint256 _geohash5) public pure returns (int256[2] memory) {
     (int256 lat, int256 lon) = geohash5ToLatLon(_geohash5);
     return [lat, lon];
   }
@@ -75,7 +74,7 @@ library LandUtils {
       capacity--;
 
       num = _geohash5 >> 5 * capacity;
-      cd = uint256(bytes32(num) & bytes32(31));
+      cd = uint256(bytes32(uint256(num)) & bytes32(uint256(31)));
 
       for (uint8 i = 0; i < mask_arr.length; i++) {
         mask = mask_arr[i];
@@ -144,7 +143,7 @@ library LandUtils {
         bit += 1;
       } else {
         precision -= 1;
-        geohash += uint256(bytes32(ch) & bytes32(31)) << 5 * precision;
+        geohash += uint256(bytes32(uint256(ch)) & bytes32(uint256(31))) << 5 * precision;
         bit = 0;
         ch = 0;
       }
@@ -152,7 +151,7 @@ library LandUtils {
     return geohash;
   }
 
-  function UtmUncompress(int[3] compressedUtm) internal returns (int x, int y, int scale, int latBand, int zone, int isNorth) {
+  function UtmUncompress(int[3] memory compressedUtm) internal returns (int x, int y, int scale, int latBand, int zone, int isNorth) {
     x = compressedUtm[0];
     y = compressedUtm[1];
 
@@ -162,7 +161,7 @@ library LandUtils {
     scale = compressedUtm[2] - (zone * 1 ether * 10 ** 3) - (isNorth * 1 ether * 10 ** 6) - (latBand * 1 ether * 10 ** 9);
   }
 
-  function latLonToUtmCompressed(int _lat, int _lon) public returns (int[3]) {
+  function latLonToUtmCompressed(int _lat, int _lon) public returns (int[3] memory) {
     (int x, int y, int scale, int latBand, int zone, bool isNorth) = latLonToUtm(_lat, _lon);
 
     return [x, y, scale + (zone * 1 ether * 10 ** 3) + (int(isNorth ? 1 : 0) * 1 ether * 10 ** 6) + (latBand * 1 ether * 10 ** 9)];
@@ -333,7 +332,7 @@ library LandUtils {
 
   // TrigonometryUtils.degreeToRad(((zone - 1) * 6 ether) - 180 ether + 3 ether)
   //TODO: my be used for optimize gas. If not - delete this
-  function L0byZone() public view returns (int[61]) {
+  function L0byZone() public view returns (int[61] memory) {
     return [int(- 3193952531149623000), - 3089232776029963300, - 2984513020910303000, - 2879793265790643700, - 2775073510670984000, - 2670353755551324000, - 2565634000431664600, - 2460914245312004000, - 2356194490192345000, - 2251474735072684800, - 2146754979953025500, - 2042035224833365500, - 1937315469713705700, - 1832595714594046200, - 1727875959474386400, - 1623156204354726400, - 1518436449235066600, - 1413716694115406800, - 1308996938995747300, - 1204277183876087300, - 1099557428756427600, - 994837673636767700, - 890117918517108000, - 785398163397448300, - 680678408277788400, - 575958653158128800, - 471238898038469000, - 366519142918809200, - 261799387799149400, - 157079632679489660, - 52359877559829880, 52359877559829880, 157079632679489660, 261799387799149400, 366519142918809200, 471238898038469000, 575958653158128800, 680678408277788400, 785398163397448300, 890117918517108000, 994837673636767700, 1099557428756427600, 1204277183876087300, 1308996938995747300, 1413716694115406800, 1518436449235066600, 1623156204354726400, 1727875959474386400, 1832595714594046200, 1937315469713705700, 2042035224833365500, 2146754979953025500, 2251474735072684800, 2356194490192345000, 2460914245312004000, 2565634000431664600, 2670353755551324000, 2775073510670984000, 2879793265790643700, 2984513020910303000, 3089232776029963300];
   }
 

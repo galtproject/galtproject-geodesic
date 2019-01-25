@@ -10,14 +10,13 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-
-import "./LandUtils.sol";
 import "@galtproject/math/contracts/TrigonometryUtils.sol";
+import "./LandUtils.sol";
 import "./PointUtils.sol";
 import "./SegmentUtils.sol";
+
 
 library PolygonUtils {
   struct LatLonData {mapping(uint => int256[2]) latLonByGeohash;}
@@ -36,7 +35,7 @@ library PolygonUtils {
   event LogPoint(int256[2] point);
   event LogPolygonPoint(int256[2] point);
 
-  function geohash5ToLatLonArr(LatLonData storage self, uint256 _geohash5) internal returns (int256[2]) {
+  function geohash5ToLatLonArr(LatLonData storage self, uint256 _geohash5) internal returns (int256[2] memory) {
     (int256 lat, int256 lon) = geohash5ToLatLon(self, _geohash5);
     return [lat, lon];
   }
@@ -49,7 +48,7 @@ library PolygonUtils {
     return (self.latLonByGeohash[_geohash5][0], self.latLonByGeohash[_geohash5][1]);
   }
 
-  function isInside(LatLonData storage self, uint _geohash5, uint256[] _polygon) public returns (bool) {
+  function isInside(LatLonData storage self, uint _geohash5, uint256[] memory _polygon) public returns (bool) {
     (int256 x, int256 y) = geohash5ToLatLon(self, _geohash5);
 
     bool inside = false;
@@ -69,7 +68,7 @@ library PolygonUtils {
     return inside;
   }
 
-  function isInsideCoors(int256[2] _point, CoorsPolygon storage _polygon) internal returns (bool) {
+  function isInsideCoors(int256[2] memory _point, CoorsPolygon storage _polygon) internal returns (bool) {
     bool inside = false;
     uint256 j = _polygon.points.length - 1;
 

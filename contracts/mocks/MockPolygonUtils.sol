@@ -1,9 +1,8 @@
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-//pragma experimental ABIEncoderV2;
+pragma solidity 0.5.3;
 
 import "../utils/LandUtils.sol";
 import "../utils/PolygonUtils.sol";
+
 
 contract MockPolygonUtils {
   event LogAreaResult(uint256 result);
@@ -18,7 +17,7 @@ contract MockPolygonUtils {
   event UtmDataToSave(int scale, int zone, int isNorth);
   event ConvertedUtm(bool isNorth, int zone, int latBand);
   
-  function addPoint(int256[2] point) public {
+  function addPoint(int256[2] memory point) public {
     polygon.points.push(LandUtils.latLonToUtmCompressed(point[0], point[1]));
     emit UtmPoint(polygon.points[polygon.points.length - 1]);
   }

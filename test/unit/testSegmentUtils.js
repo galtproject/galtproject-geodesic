@@ -1,23 +1,11 @@
 const MockSegmentUtils = artifacts.require('./mocks/MockSegmentUtils.sol');
 
-const Web3 = require('web3');
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
-const chaiBigNumber = require('chai-bignumber')(Web3.utils.BN);
 const { initHelperWeb3, initHelperArtifacts, ether, getSegmentUtilsLib, clearLibCache } = require('../helpers');
 
-const web3 = new Web3(MockSegmentUtils.web3.currentProvider);
+const { web3 } = MockSegmentUtils;
 
 initHelperWeb3(web3);
 initHelperArtifacts(artifacts);
-
-// TODO: move to helpers
-Web3.utils.BN.prototype.equal = Web3.utils.BN.prototype.eq;
-Web3.utils.BN.prototype.equals = Web3.utils.BN.prototype.eq;
-
-chai.use(chaiAsPromised);
-chai.use(chaiBigNumber);
-chai.should();
 
 contract('SegmentUtils', ([coreTeam]) => {
   before(clearLibCache);

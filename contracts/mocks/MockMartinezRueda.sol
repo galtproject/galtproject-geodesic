@@ -1,8 +1,7 @@
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
-//pragma experimental ABIEncoderV2;
+pragma solidity 0.5.3;
 
 import "../utils/MartinezRueda.sol";
+
 
 contract MockMartinezRueda {
   using MartinezRueda for MartinezRueda.State;
@@ -15,11 +14,11 @@ contract MockMartinezRueda {
     martinezRueda.initMartinezRueda();
   }
   
-  function addPointToSubject(int256[2] point) public {
+  function addPointToSubject(int256[2] memory point) public {
     martinezRueda.subject.points.push(point);
   }
 
-  function addPointToClipping(int256[2] point) public {
+  function addPointToClipping(int256[2] memory point) public {
     martinezRueda.clipping.points.push(point);
   }
   
@@ -47,7 +46,7 @@ contract MockMartinezRueda {
     return martinezRueda.resultEvents.length;
   }
 
-  function getResultResultEventPoint(uint256 eventIndex) public view returns(int256[2]) {
+  function getResultResultEventPoint(uint256 eventIndex) public view returns(int256[2] memory) {
     return martinezRueda.store.sweepById[martinezRueda.resultEvents[eventIndex]].point;
   }
 
@@ -67,7 +66,7 @@ contract MockMartinezRueda {
     return martinezRueda.resultContours[contourIndex].length;
   }
   
-  function getResultContourPoint(uint256 contourIndex, uint256 pointIndex) public view returns(int256[2]) {
+  function getResultContourPoint(uint256 contourIndex, uint256 pointIndex) public view returns(int256[2] memory) {
     return martinezRueda.resultContours[contourIndex][pointIndex];
   }
 }

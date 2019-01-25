@@ -10,12 +10,11 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
+pragma solidity 0.5.3;
 
 import "@galtproject/math/contracts/MathUtils.sol";
 import "./VectorUtils.sol";
 
-pragma solidity 0.4.24;
-pragma experimental "v0.5.0";
 
 library SegmentUtils {
 
@@ -32,7 +31,7 @@ library SegmentUtils {
     Position position;
   }
 
-  function segmentsIntersect(int[2][2] a, int[2][2] b) internal pure returns (bool) {
+  function segmentsIntersect(int[2][2] memory a, int[2][2] memory b) internal pure returns (bool) {
     int256 d1 = VectorUtils.direction(b[0], b[1], a[0]);
     int256 d2 = VectorUtils.direction(b[0], b[1], a[1]);
     int256 d3 = VectorUtils.direction(a[0], a[1], b[0]);
@@ -52,7 +51,7 @@ library SegmentUtils {
     return false;
   }
 
-  function findSegmentsIntersection(int[2][2] a, int[2][2] b) internal pure returns (int256[2]) {
+  function findSegmentsIntersection(int[2][2] memory a, int[2][2] memory b) internal pure returns (int256[2] memory) {
     int xDivide = ((a[0][0] - a[1][0]) * (b[0][1] - b[1][1]) - (a[0][1] - a[1][1]) * (b[0][0] - b[1][0]));
     if (xDivide == 0) {
       return int256[2]([int256(0), 0]);
@@ -92,11 +91,11 @@ library SegmentUtils {
     return [x, y];
   }
 
-  function isEqual(int[2][2] a, int[2][2] b) internal view returns (bool) {
+  function isEqual(int[2][2] memory a, int[2][2] memory b) internal view returns (bool) {
     return b[0][0] == a[0][0] && b[0][1] != a[0][1] && b[1][0] == a[1][0] && b[1][1] != a[1][1];
   }
 
-  function compareSegments(Sweepline storage sweepline, int[2][2] a, int[2][2] b) internal returns (int8) {
+  function compareSegments(Sweepline storage sweepline, int[2][2] memory a, int[2][2] memory b) internal returns (int8) {
     if (isEqual(a, b)) {
       return int8(0);
     }
@@ -129,7 +128,7 @@ library SegmentUtils {
     return int8(0);
   }
 
-  function getSlope(int[2][2] segment) internal pure returns (int) {
+  function getSlope(int[2][2] memory segment) internal pure returns (int) {
     if (segment[0][0] == segment[1][0]) {
       return (segment[0][1] < segment[1][1]) ? MathUtils.INT256_MAX() : MathUtils.INT256_MIN();
     } else {
@@ -137,7 +136,7 @@ library SegmentUtils {
     }
   }
 
-  function getY(int[2][2] segment, int x) internal returns (int) {
+  function getY(int[2][2] memory segment, int x) internal returns (int) {
     if (x <= segment[0][0]) {
       return segment[0][1];
     } else if (x >= segment[1][0]) {
@@ -177,7 +176,7 @@ library SegmentUtils {
 
   event LogDiff(int diff);
 
-  function pointOnSegment(int[2] point, int[2] sp1, int[2] sp2) internal returns (bool) {
+  function pointOnSegment(int[2] memory point, int[2] memory sp1, int[2] memory sp2) internal returns (bool) {
     emit LogPoint("c", point);
     emit LogPoint("a", sp1);
     emit LogPoint("b", sp2);

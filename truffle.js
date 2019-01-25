@@ -1,5 +1,4 @@
 const Ganache = require('ganache-core');
-const _ = require('lodash');
 
 const config = {
   networks: {
@@ -11,11 +10,6 @@ const config = {
     ganache: {
       host: '127.0.0.1',
       port: 7545,
-      network_id: '*'
-    },
-    testnet57: {
-      host: '127.0.0.1',
-      port: 8545,
       network_id: '*'
     },
     development: {
@@ -38,27 +32,21 @@ const config = {
         // 7 800 000
         gasLimit: 0x7704c0
       }),
+      skipDryRun: true,
       network_id: '*'
     }
   },
-  solc: {
-    optimizer: {
-      enabled: true,
-      runs: 200
+  compilers: {
+    solc: {
+      version: 'native',
+      settings: {
+        optimizer: {
+          enabled: true,
+          runs: 200
+        }
+      }
     }
   }
 };
-
-if (process.env.USE_GAS_REPORTER === 'yes') {
-  _.merge(config, {
-    mocha: {
-      reporter: 'eth-gas-reporter',
-      reporterOptions: {
-        currency: 'USD',
-        gasPrice: 21
-      }
-    }
-  });
-}
 
 module.exports = config;

@@ -1,6 +1,6 @@
 # Galt Project Geodesic Contracts (@galtproject/geodesic)
 
-[![Build Status](https://travis-ci.org/galtspace/galtproject-libs.svg?branch=master)](https://travis-ci.org/galtspace/galtproject-libs)
+[![Build Status](https://travis-ci.org/galtspace/galtproject-geodesic.svg?branch=master)](https://travis-ci.org/galtspace/galtproject-geodesic)
 [![Contracts Version](https://img.shields.io/badge/version-0.1.0-orange.svg)](https://github.com/galtspace/galtproject-svg)
 [![Telegram Chat](https://img.shields.io/badge/telegram-chat-blue.svg)](https://t.me/galtproject)
 

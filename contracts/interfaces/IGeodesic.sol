@@ -34,4 +34,8 @@ contract IGeodesic {
   function getCachedGeohashByLatLon(int256[2] memory point, uint8 precision) public returns (uint256);
 
   function calculateContourArea(uint256[] calldata contour) external returns (uint256 area);
+  
+  function getNotCachedGeohashes(uint256[] memory _geohashList) public view returns (uint256[] memory);
+
+  function getContourArea(uint256[] calldata contour) external view returns (uint256 area);
 }

@@ -151,7 +151,7 @@ library LandUtils {
     return geohash;
   }
 
-  function UtmUncompress(int[3] memory compressedUtm) internal returns (int x, int y, int scale, int latBand, int zone, int isNorth) {
+  function UtmUncompress(int[3] memory compressedUtm) internal view returns (int x, int y, int scale, int latBand, int zone, int isNorth) {
     x = compressedUtm[0];
     y = compressedUtm[1];
 

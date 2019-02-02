@@ -93,4 +93,18 @@ contract Geodesic is IGeodesic, Ownable {
     area = PolygonUtils.getUtmArea(p);
     emit ContourAreaCalculate(contour, area);
   }
+
+  function getContourArea(uint256[] calldata contour) external view returns (uint256 area) {
+    PolygonUtils.UtmPolygon memory p;
+    p.points = new int256[3][](contour.length);
+
+    for (uint i = 0; i < contour.length; i++) {
+      if (latLonData.utmByGeohash[contour[i]][0] != 0) {
+        p.points[i] = latLonData.utmByGeohash[contour[i]];
+      } else {
+        assert(true);
+      }
+    }
+    area = PolygonUtils.getUtmArea(p);
+  }
 }

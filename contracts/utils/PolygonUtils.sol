@@ -91,7 +91,7 @@ library PolygonUtils {
     ((thirdPoint[0] - secondPoint[0]) * (thirdPoint[1] + secondPoint[1]))) > 0;
   }
 
-  function getUtmArea(UtmPolygon memory _polygon) internal returns (uint result) {
+  function getUtmArea(UtmPolygon memory _polygon) internal view returns (uint result) {
     int area = 0;
     // Accumulates area in the loop
     uint j = _polygon.points.length - 1;

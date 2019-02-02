@@ -1,6 +1,6 @@
 const galt = require('@galtproject/utils');
 
-const { deployGeodesic, clearLibCache } = require('../helpers');
+const { deployGeodesic, clearLibCache, assertRevert } = require('../helpers');
 
 contract('Geodesic', () => {
   before(clearLibCache);
@@ -23,5 +23,11 @@ contract('Geodesic', () => {
 
     const viewRes = await this.geodesic.getContourArea(contour);
     assert.equal(res.logs[0].args.area.toString(10), viewRes.toString());
+  });
+
+  it('should reject getContourArea for not cached geohashes', async function() {
+    await assertRevert(
+      this.geodesic.getContourArea(['k6wnu7d6tj80', 'k6wnu7d6tj8x', 'k6wnu6umb4b4'].map(galt.geohashToGeohash5))
+    );
   });
 });

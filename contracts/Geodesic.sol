@@ -102,7 +102,7 @@ contract Geodesic is IGeodesic, Ownable {
       if (latLonData.utmByGeohash[contour[i]][0] != 0) {
         p.points[i] = latLonData.utmByGeohash[contour[i]];
       } else {
-        assert(true);
+        revert("Geohashes should be cached");
       }
     }
     area = PolygonUtils.getUtmArea(p);

@@ -2,7 +2,7 @@ const galt = require('@galtproject/utils');
 
 const { deployGeodesic, clearLibCache } = require('../helpers');
 
-contract.only('Geodesic', () => {
+contract('Geodesic', () => {
   before(clearLibCache);
 
   beforeEach(async function() {

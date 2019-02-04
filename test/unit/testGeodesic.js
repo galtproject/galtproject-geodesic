@@ -2,7 +2,7 @@ const galt = require('@galtproject/utils');
 
 const { deployGeodesic, clearLibCache, assertRevert } = require('../helpers');
 
-contract('Geodesic', () => {
+contract.only('Geodesic', () => {
   before(clearLibCache);
 
   let geodesic;
@@ -11,16 +11,37 @@ contract('Geodesic', () => {
   });
 
   it('should calculate contour area correctly', async () => {
-    const shouldBeArea = 500882.5;
+    const geohashContour = ['k6wnu5q1jh44', 'k6wnu7d6tj8x', 'k6wnu6umb4b4', 'k6wnu60xk405', 'k6wnu4m0pvxy'];
+    const shouldBeArea = galt.geohash.contour.area(geohashContour);
 
-    const contour = ['k6wnu5q1jh44', 'k6wnu7d6tj8x', 'k6wnu6umb4b4', 'k6wnu60xk405', 'k6wnu4m0pvxy'].map(
-      galt.geohashToGeohash5
-    );
+    const contour = geohashContour.map(galt.geohashToGeohash5);
     let res = await geodesic.cacheGeohashListToLatLonAndUtm(contour);
     console.log('gasUsed for cache', res.receipt.gasUsed);
     res = await geodesic.calculateContourArea(contour);
     console.log('gasUsed for calculate', res.receipt.gasUsed);
-    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), 1.5);
+    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), 3);
+
+    const viewRes = await geodesic.getContourArea(contour);
+    assert.equal(res.logs[0].args.area.toString(10), viewRes.toString());
+  });
+
+  it('should calculate contour area correctly user case 1', async () => {
+    const geohashContour = [
+      'w24qfpvbmnkt',
+      'w24qf5ju3pkx',
+      'w24qfejgkp2p',
+      'w24qftn244vj',
+      'w24qfmpp2p00',
+      'w24qfrx3sxuc'
+    ];
+    const shouldBeArea = galt.geohash.contour.area(geohashContour);
+
+    const contour = geohashContour.map(galt.geohashToGeohash5);
+    let res = await geodesic.cacheGeohashListToLatLonAndUtm(contour);
+    console.log('gasUsed for cache', res.receipt.gasUsed);
+    res = await geodesic.calculateContourArea(contour);
+    console.log('gasUsed for calculate', res.receipt.gasUsed);
+    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), 3);
 
     const viewRes = await geodesic.getContourArea(contour);
     assert.equal(res.logs[0].args.area.toString(10), viewRes.toString());

@@ -8,7 +8,7 @@
   "dependencies": {},
   "devDependencies": {
     "@galtproject/eslint-config-galt": "git+https://github.com/galtspace/eslint-config-galt.git",
-    "@galtproject/utils": "0.9.1",
+    "@galtproject/utils": "git://github.com/galtspace/galtproject-utils-js.git#72ed184",
     "@galtproject/math": "git+https://github.com/galtspace/galtproject-math.git#5104d339b0f899a2d82c76acb693add952495171",
     "@galtproject/libs": "git+https://github.com/galtspace/galtproject-libs.git",
     "eslint": "^5.12.1",

@@ -5,6 +5,8 @@ const { deployGeodesic, clearLibCache, assertRevert } = require('../helpers');
 contract.only('Geodesic', () => {
   before(clearLibCache);
 
+  const areaAccurancy = 7;
+
   let geodesic;
   beforeEach(async () => {
     geodesic = await deployGeodesic();
@@ -19,7 +21,7 @@ contract.only('Geodesic', () => {
     console.log('gasUsed for cache', res.receipt.gasUsed);
     res = await geodesic.calculateContourArea(contour);
     console.log('gasUsed for calculate', res.receipt.gasUsed);
-    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), 3);
+    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), areaAccurancy);
 
     const viewRes = await geodesic.getContourArea(contour);
     assert.equal(res.logs[0].args.area.toString(10), viewRes.toString());
@@ -41,7 +43,7 @@ contract.only('Geodesic', () => {
     console.log('gasUsed for cache', res.receipt.gasUsed);
     res = await geodesic.calculateContourArea(contour);
     console.log('gasUsed for calculate', res.receipt.gasUsed);
-    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), 3);
+    assert.isBelow(Math.abs(res.logs[0].args.area.toString(10) / 10 ** 18 - shouldBeArea), areaAccurancy);
 
     const viewRes = await geodesic.getContourArea(contour);
     assert.equal(res.logs[0].args.area.toString(10), viewRes.toString());

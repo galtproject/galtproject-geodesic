@@ -1,0 +1,18 @@
+image: node:10.15.1
+
+stages:
+  - test
+
+before_script:
+  - wget https://github.com/ethereum/solidity/releases/download/v0.5.3/solc-static-linux
+  - chmod ugo+x solc-static-linux
+  - mv solc-static-linux /usr/bin/solc
+
+test_async:
+  stage: test
+  script:
+   - npm install
+   - npm install -g eslint ethlint
+   - npm run eslint && npm run ethlint && npm run test
+  tags:
+    - docker

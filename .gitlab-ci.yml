@@ -1,12 +1,7 @@
-image: node:10.15.1
+image: galtspace/node-test-runner:0.5.3
 
 stages:
   - test
-
-before_script:
-  - wget https://github.com/ethereum/solidity/releases/download/v0.5.3/solc-static-linux
-  - chmod ugo+x solc-static-linux
-  - mv solc-static-linux /usr/bin/solc
 
 test_async:
   stage: test

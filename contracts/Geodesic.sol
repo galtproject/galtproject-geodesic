@@ -84,10 +84,6 @@ contract Geodesic is IGeodesic, Ownable {
     return resultGeohashes;
   }
 
-  function getCachedLatLonByGeohash(uint256 _geohash) public returns (int256[2] memory) {
-    return latLonData.latLonByGeohash[_geohash];
-  }
-
   function cacheLatLonToGeohash(int256[2] memory point, uint8 precision) public returns (uint256) {
     bytes32 pointHash = keccak256(abi.encode(point));
     latLonData.geohashByLatLonHash[pointHash][precision] = LandUtils.latLonToGeohash5(point[0], point[1], precision);
@@ -105,6 +101,19 @@ contract Geodesic is IGeodesic, Ownable {
     return latLonData.geohashByLatLonHash[pointHash][precision];
   }
 
+  function getCachedLatLonByGeohash(uint256 _geohash) public returns (int256[2] memory) {
+    return latLonData.latLonByGeohash[_geohash];
+  }
+  
+  function getCachedUtmByGeohash(uint256 _geohash) public returns (int256[3] memory) {
+    return latLonData.utmByGeohash[_geohash];
+  }
+
+  function getCachedUtmByLatLon(int256[2] memory point) public returns (int256[3] memory) {
+    bytes32 pointHash = keccak256(abi.encode(point));
+    return latLonData.utmByLatLonHash[pointHash];
+  }
+  
   function calculateContourArea(uint256[] calldata contour) external returns (uint256 area) {
     PolygonUtils.UtmPolygon memory p;
     p.points = new int256[3][](contour.length);

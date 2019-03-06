@@ -14,7 +14,6 @@ pragma solidity 0.5.3;
 
 import "../utils/LandUtils.sol";
 
-
 contract IGeodesic {
   LandUtils.LatLonData private geodesicData;
   event ContourAreaCalculate(uint256[] contour, uint256 area);

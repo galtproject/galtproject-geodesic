@@ -87,4 +87,17 @@ contract.only('Geodesic', () => {
     notCachedSecondContour = await geodesic.getNotCachedGeohashes(firstContour);
     assert.equal(notCachedSecondContour.length, 0);
   });
+
+  it('should cache latLon to utm', async () => {
+    const latLonContour = [
+      [1.2291728239506483, 104.51007032766938],
+      [1.2037726398557425, 104.50989866629243],
+      [1.2036009784787893, 104.53199403360486],
+      [1.227113390341401, 104.53336732462049]
+    ].map(point => point.map(coor => Math.round(coor * 10 ** 18).toString()));
+
+    await geodesic.cacheLatLonListToUtm(latLonContour);
+    const cachedUtm = (await geodesic.getCachedUtmByLatLon(latLonContour[0])).map(u => parseInt(u.toString(10), 10));
+    assert.notStrictEqual(cachedUtm, 0);
+  });
 });

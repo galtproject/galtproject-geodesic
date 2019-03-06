@@ -59,6 +59,77 @@ contract Geodesic is IGeodesic, Ownable {
     }
   }
 
+  function cacheLatLonToGeohash(int256[2] memory point, uint8 precision) public returns (uint256) {
+    bytes32 pointHash = keccak256(abi.encode(point));
+    latLonData.geohashByLatLonHash[pointHash][precision] = LandUtils.latLonToGeohash5(point[0], point[1], precision);
+    return latLonData.geohashByLatLonHash[pointHash][precision];
+  }
+
+  function cacheLatLonListToGeohash(int256[2][] memory _pointList, uint8 precision) public {
+    for (uint i = 0; i < _pointList.length; i++) {
+      cacheLatLonToGeohash(_pointList[i], precision);
+    }
+  }
+
+  function cacheLatLonToUtm(int256[2] memory point) public returns (int256[3] memory) {
+    bytes32 pointHash = keccak256(abi.encode(point));
+    latLonData.utmByLatLonHash[pointHash] = LandUtils.latLonToUtmCompressed(point[0], point[1]);
+    return latLonData.utmByLatLonHash[pointHash];
+  }
+  
+  function cacheLatLonListToUtm(int256[2][] memory _pointList) public {
+    for (uint i = 0; i < _pointList.length; i++) {
+      cacheLatLonToUtm(_pointList[i]);
+    }
+  }
+  
+  function calculateContourArea(uint256[] calldata contour) external returns (uint256 area) {
+    PolygonUtils.UtmPolygon memory p;
+    p.points = new int256[3][](contour.length);
+
+    for (uint i = 0; i < contour.length; i++) {
+      if (latLonData.utmByGeohash[contour[i]][0] != 0) {
+        p.points[i] = latLonData.utmByGeohash[contour[i]];
+      } else {
+        p.points[i] = cacheGeohashToLatLonAndUtm(contour[i]);
+      }
+    }
+    area = PolygonUtils.getUtmArea(p);
+    emit ContourAreaCalculate(contour, area);
+  }
+
+  function getCachedGeohashByLatLon(int256[2] memory point, uint8 precision) public view returns (uint256) {
+    bytes32 pointHash = keccak256(abi.encode(point));
+    return latLonData.geohashByLatLonHash[pointHash][precision];
+  }
+
+  function getCachedLatLonByGeohash(uint256 _geohash) public view returns (int256[2] memory) {
+    return latLonData.latLonByGeohash[_geohash];
+  }
+
+  function getCachedUtmByGeohash(uint256 _geohash) public view returns (int256[3] memory) {
+    return latLonData.utmByGeohash[_geohash];
+  }
+
+  function getCachedUtmByLatLon(int256[2] memory point) public view returns (int256[3] memory) {
+    bytes32 pointHash = keccak256(abi.encode(point));
+    return latLonData.utmByLatLonHash[pointHash];
+  }
+
+  function getContourArea(uint256[] calldata contour) external view returns (uint256 area) {
+    PolygonUtils.UtmPolygon memory p;
+    p.points = new int256[3][](contour.length);
+
+    for (uint i = 0; i < contour.length; i++) {
+      if (latLonData.utmByGeohash[contour[i]][0] != 0) {
+        p.points[i] = latLonData.utmByGeohash[contour[i]];
+      } else {
+        revert("Geohashes should be cached");
+      }
+    }
+    area = PolygonUtils.getUtmArea(p);
+  }
+
   function getNotCachedGeohashes(uint256[] memory _geohashList) public view returns (uint256[] memory) {
     uint256[] memory notCachedGeohashes = new uint256[](_geohashList.length);
     uint resultLength = 0;
@@ -82,64 +153,5 @@ contract Geodesic is IGeodesic, Ownable {
       resultGeohashes[i] = notCachedGeohashes[i];
     }
     return resultGeohashes;
-  }
-
-  function cacheLatLonToGeohash(int256[2] memory point, uint8 precision) public returns (uint256) {
-    bytes32 pointHash = keccak256(abi.encode(point));
-    latLonData.geohashByLatLonHash[pointHash][precision] = LandUtils.latLonToGeohash5(point[0], point[1], precision);
-    return latLonData.geohashByLatLonHash[pointHash][precision];
-  }
-
-  function cacheLatLonListToGeohash(int256[2][] memory _pointList, uint8 precision) public {
-    for (uint i = 0; i < _pointList.length; i++) {
-      cacheLatLonToGeohash(_pointList[i], precision);
-    }
-  }
-
-  function getCachedGeohashByLatLon(int256[2] memory point, uint8 precision) public returns (uint256) {
-    bytes32 pointHash = keccak256(abi.encode(point));
-    return latLonData.geohashByLatLonHash[pointHash][precision];
-  }
-
-  function getCachedLatLonByGeohash(uint256 _geohash) public returns (int256[2] memory) {
-    return latLonData.latLonByGeohash[_geohash];
-  }
-  
-  function getCachedUtmByGeohash(uint256 _geohash) public returns (int256[3] memory) {
-    return latLonData.utmByGeohash[_geohash];
-  }
-
-  function getCachedUtmByLatLon(int256[2] memory point) public returns (int256[3] memory) {
-    bytes32 pointHash = keccak256(abi.encode(point));
-    return latLonData.utmByLatLonHash[pointHash];
-  }
-  
-  function calculateContourArea(uint256[] calldata contour) external returns (uint256 area) {
-    PolygonUtils.UtmPolygon memory p;
-    p.points = new int256[3][](contour.length);
-
-    for (uint i = 0; i < contour.length; i++) {
-      if (latLonData.utmByGeohash[contour[i]][0] != 0) {
-        p.points[i] = latLonData.utmByGeohash[contour[i]];
-      } else {
-        p.points[i] = cacheGeohashToLatLonAndUtm(contour[i]);
-      }
-    }
-    area = PolygonUtils.getUtmArea(p);
-    emit ContourAreaCalculate(contour, area);
-  }
-
-  function getContourArea(uint256[] calldata contour) external view returns (uint256 area) {
-    PolygonUtils.UtmPolygon memory p;
-    p.points = new int256[3][](contour.length);
-
-    for (uint i = 0; i < contour.length; i++) {
-      if (latLonData.utmByGeohash[contour[i]][0] != 0) {
-        p.points[i] = latLonData.utmByGeohash[contour[i]];
-      } else {
-        revert("Geohashes should be cached");
-      }
-    }
-    area = PolygonUtils.getUtmArea(p);
   }
 }

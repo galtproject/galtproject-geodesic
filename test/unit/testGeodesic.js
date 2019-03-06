@@ -2,7 +2,7 @@ const galt = require('@galtproject/utils');
 
 const { deployGeodesic, clearLibCache, assertRevert } = require('../helpers');
 
-contract.only('Geodesic', () => {
+contract('Geodesic', () => {
   before(clearLibCache);
 
   const areaAccurancy = 7;

@@ -10,9 +10,10 @@
  * Galt•Space Society Construction and Terraforming Company by
  * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
  */
-pragma solidity 0.5.3;
+pragma solidity 0.5.7;
 
 import "../utils/LandUtils.sol";
+
 
 contract IGeodesic {
   LandUtils.LatLonData private geodesicData;

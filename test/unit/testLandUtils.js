@@ -40,12 +40,12 @@ contract('LandUtils', ([deployer]) => {
   describe('#latLonToUtm()', () => {
     it.only('should correctly convert lat lon to utm', async function() {
       const latLonToCheck = [
-        // [-74.0550677213, -90.318972094],
-        // [25.5888986977, -125.9639064827],
-        // [11.9419456134, 30.6196556841],
-        // [66.9375384427, -9.6290061374],
-        // [-1.9773564645, 134.3986143967],
-        // [43.66854867897928, 2.269438672810793],
+        [-74.0550677213, -90.318972094],
+        [25.5888986977, -125.9639064827],
+        [11.9419456134, 30.6196556841],
+        [66.9375384427, -9.6290061374],
+        [-1.9773564645, 134.3986143967],
+        [43.66854867897928, 2.269438672810793],
         [1.2291728239506483, 104.51007032766938]
       ];
 
@@ -65,14 +65,14 @@ contract('LandUtils', ([deployer]) => {
         const scaleResult = result.scale / 10 ** 18;
         // const convergenceResult = result.convergence / 10 ** 18;
 
-        console.log('xResult');
-        console.log(xResult);
-        console.log(shouldBeUtm.x);
-        console.log(xResult - shouldBeUtm.x);
-        console.log('yResult');
-        console.log(yResult);
-        console.log(shouldBeUtm.y);
-        console.log(yResult - shouldBeUtm.y);
+        // console.log('xResult');
+        // console.log(xResult);
+        // console.log(shouldBeUtm.x);
+        // console.log(xResult - shouldBeUtm.x);
+        // console.log('yResult');
+        // console.log(yResult);
+        // console.log(shouldBeUtm.y);
+        // console.log(yResult - shouldBeUtm.y);
         // console.log('yDiff', Math.abs(yResult - shouldBeUtm.y));
         // console.log('scaleDiff', Math.abs(scaleResult - shouldBeUtm.scale));
         // console.log('convergenceDiff', Math.abs(convergenceResult - shouldBeUtm.convergence));

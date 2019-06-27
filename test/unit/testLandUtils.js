@@ -45,7 +45,8 @@ contract('LandUtils', ([deployer]) => {
         [11.9419456134, 30.6196556841],
         [66.9375384427, -9.6290061374],
         [-1.9773564645, 134.3986143967],
-        [43.66854867897928, 2.269438672810793]
+        [43.66854867897928, 2.269438672810793],
+        [1.2291728239506483, 104.51007032766938]
       ];
 
       await pIteration.forEachSeries(latLonToCheck, async point => {
@@ -78,6 +79,7 @@ contract('LandUtils', ([deployer]) => {
         //
         // console.log('gasUsed', res.receipt.gasUsed);
 
+        // TODO: find the reason dropping of accuarancy from 0.007 to 0.07
         assert.isBelow(Math.abs(xResult - shouldBeUtm.x), 0.07);
         assert.isBelow(Math.abs(yResult - shouldBeUtm.y), 0.07);
         assert.isBelow(Math.abs(scaleResult - shouldBeUtm.scale), 0.001);

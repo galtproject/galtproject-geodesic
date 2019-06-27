@@ -3,8 +3,9 @@ const LandUtils = artifacts.require('./utils/LandUtils.sol');
 const TrigonometryUtils = artifacts.require('./utils/TrigonometryUtils.sol');
 const MockPolygonUtils = artifacts.require('./mocks/MockPolygonUtils.sol');
 
+const galt = require('@galtproject/utils');
 const pIteration = require('p-iteration');
-const { initHelperWeb3, ether } = require('../helpers');
+const { initHelperWeb3, ether, weiToEther } = require('../helpers');
 
 const { web3 } = MockPolygonUtils;
 
@@ -30,17 +31,22 @@ contract('PolygonUtils', ([coreTeam]) => {
         [1.2291728239506483, 104.51007032766938],
         [1.2037726398557425, 104.50989866629243],
         [1.2036009784787893, 104.53199403360486],
-        [1.227113390341401, 104.53336732462049]
+        // [1.227113390341401, 104.53336732462049]
       ];
 
-      const etherContour = contour.map(point => point.map(c => ether(Math.round(c * 10 ** 12) / 10 ** 12)));
+      const etherContour = contour.map(point => point.map(c => ether(c)));
       await pIteration.forEachSeries(etherContour, async point => {
         await this.mockPolygonUtils.addPoint(point);
       });
 
-      const res = await this.mockPolygonUtils.getArea();
+      const jsArea = galt.utm.area(contour.map(point => galt.utm.fromLatLon(point[0], point[1])));
+      console.log('jsArea', jsArea);
 
-      assert.isBelow(Math.abs(res.logs[0].args.result.toString(10) / 10 ** 18 - 6841437.7), 1.5);
+      const res = await this.mockPolygonUtils.getArea();
+      const solArea = weiToEther(res.logs[0].args.result);
+      console.log('solArea', solArea);
+
+      assert.isBelow(Math.abs(Math.abs(solArea) - Math.abs(jsArea)), 4);
     });
 
     it('should correctly get south area', async function() {

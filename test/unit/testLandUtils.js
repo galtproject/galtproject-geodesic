@@ -38,7 +38,7 @@ contract('LandUtils', ([deployer]) => {
   });
 
   describe('#latLonToUtm()', () => {
-    it.only('should correctly convert lat lon to utm', async function() {
+    it('should correctly convert lat lon to utm', async function() {
       const latLonToCheck = [
         [-74.0550677213, -90.318972094],
         [25.5888986977, -125.9639064827],

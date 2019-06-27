@@ -178,6 +178,7 @@ library LandUtils {
 
   // 2πA is the circumference of a meridian
   int constant A = 6367449145823415000000000;
+  int constant AmulK0 = 6364902166165086000000000;
   // eccentricity
   int constant eccentricity = 81819190842621490;
 
@@ -218,12 +219,19 @@ library LandUtils {
     variables[2] = TrigonometryUtils.sinh((eccentricity * TrigonometryUtils.atanh((eccentricity * variables[1]) / variables[14])) / 1 ether);
     variables[3] = (variables[1] * MathUtils.sqrt(1 ether + (variables[2] * variables[2]) / 1 ether)) / 1 ether - (variables[2] * variables[14]) / 1 ether;
 
+//    emit DebugInt("F", variables[0]);
+//    emit DebugInt("t", variables[1]);
+//    emit DebugInt("o", variables[2]);
     //  variables[4] - tanL
     //  variables[5] - MathUtils.sqrt(((ti * ti) / 1 ether) + ((cosL * cosL) / 1 ether))
     //  variables[6] - Ei
     //  variables[7] - ni
     (variables[4], variables[6], variables[7], variables[5]) = getUTM_tanL_Ei_ni(_lon, L0, variables[3]);
 
+//    emit DebugInt("ni", variables[7]);
+//    emit DebugInt("tanL", variables[4]);
+//    emit DebugInt("MathUtils.sqrt(((ti * ti) / 1 ether) + ((cosL * cosL) / 1 ether))", variables[5]);
+    
     variables[15] = TrigonometryUtils.sin(2 * 1 * variables[6]);
     variables[16] = TrigonometryUtils.sin(2 * 2 * variables[6]);
     variables[17] = TrigonometryUtils.sin(2 * 3 * variables[6]);
@@ -263,6 +271,7 @@ library LandUtils {
     /* solium-disable-next-line */
     + (a[6] * (variables[20] * variables[26]) / 1 ether) / 1 ether;
 
+//    emit DebugInt("Ei", variables[6]);
     //  variables[9] - n
     /* solium-disable-next-line */
     variables[9] = variables[7]
@@ -274,8 +283,14 @@ library LandUtils {
     /* solium-disable-next-line */
     + (a[6] * ((variables[32] * variables[38]) / 1 ether)) / 1 ether;
 
-    x = (((k0 * A) / 1 ether) * variables[9]) / 1 ether;
-    y = (((k0 * A) / 1 ether) * variables[8]) / 1 ether;
+//    emit DebugInt("k0 * A", AmulK0);
+//    emit DebugInt("E", variables[8]);
+//    emit DebugInt("A", A);
+    
+    x = (AmulK0 * variables[9]) / 1 ether;
+    y = (AmulK0 * variables[8]) / 1 ether;
+//    emit DebugInt("x", x);
+//    emit DebugInt("y", y);
     // ------------
 
     // shift x/y to false origins
@@ -385,7 +400,10 @@ library LandUtils {
     int cosL = TrigonometryUtils.cos(L);
     tanL = TrigonometryUtils.tan(L);
 
+//    emit DebugInt("ti", ti);
+//    emit DebugInt("cosL", cosL);
     Ei = TrigonometryUtils.atan2(ti, cosL);
+//    emit DebugInt("Ei", Ei);
     si = MathUtils.sqrt(((ti * ti) / 1 ether) + ((cosL * cosL) / 1 ether));
     ni = TrigonometryUtils.asinh((TrigonometryUtils.sin(L) * 1 ether) / si);
   }

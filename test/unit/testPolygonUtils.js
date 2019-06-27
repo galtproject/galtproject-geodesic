@@ -39,7 +39,7 @@ contract('PolygonUtils', ([coreTeam]) => {
     };
   });
 
-  describe.only('#getArea()', () => {
+  describe('#getArea()', () => {
     // https://geographiclib.sourceforge.io/cgi-bin/Planimeter
 
     it('should correctly get north area', async function() {

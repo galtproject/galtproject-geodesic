@@ -31,8 +31,11 @@ const Helpers = {
   roundToPrecision(number, precision = 4) {
     return Math.round(number * 10 ** precision) / 10 ** precision;
   },
+  weiToEther(wei) {
+    return parseFloat(web3.utils.fromWei(wei.toString(10), 'ether'));
+  },
   weiToEtherRound(wei, precision = 4) {
-    return Helpers.roundToPrecision(parseFloat(web3.utils.fromWei(wei.toFixed(), 'ether')), precision);
+    return Helpers.roundToPrecision(Helpers.weiToEther(wei), precision);
   },
   log(...args) {
     console.log('>>>', new Date().toLocaleTimeString(), '>>>', ...args);

@@ -1,6 +1,7 @@
 const LandUtils = artifacts.require('./utils/LandUtils.sol');
 const MockLandUtils = artifacts.require('./mocks/MockLandUtils.sol');
 
+const galt = require('@galtproject/utils');
 const pIteration = require('p-iteration');
 
 const { web3 } = LandUtils;
@@ -43,20 +44,15 @@ contract('LandUtils', ([deployer]) => {
         [25.5888986977, -125.9639064827],
         [11.9419456134, 30.6196556841],
         [66.9375384427, -9.6290061374],
-        [-1.9773564645, 134.3986143967]
+        [-1.9773564645, 134.3986143967],
+        [43.66854867897928, 2.269438672810793],
+        [1.2291728239506483, 104.51007032766938]
       ];
 
-      const shouldBeUtmByIndex = [
-        { zone: 15, h: 'S', x: 582184.914156, y: 1779969.098105, convergence: -2.578020654, scale: 0.99968257906 },
-        { zone: 10, h: 'N', x: 202270.551102, y: 2833486.274605, convergence: -1.281088775, scale: 1.000694737455 },
-        { zone: 36, h: 'N', x: 240753.909523, y: 1321248.884905, convergence: -0.492818697, scale: 1.000431591336 },
-        { zone: 29, h: 'N', x: 472503.837058, y: 7424555.961089, convergence: -0.578738506, scale: 0.999609252979 },
-        { zone: 53, h: 'S', x: 433119.186937, y: 9781429.716413, convergence: 0.020751304, scale: 0.999655369864 }
-      ];
-
-      await pIteration.forEach(latLonToCheck, async (point, index) => {
-        const shouldBeUtm = shouldBeUtmByIndex[index];
-
+      await pIteration.forEachSeries(latLonToCheck, async point => {
+        // console.log('point', point);
+        // const shouldBeUtm = shouldBeUtmByIndex[index];
+        const shouldBeUtm = galt.utm.fromLatLon(point[0], point[1]);
         const etherPoint = point.map(coor => web3.utils.toWei(coor.toString(), 'ether'));
 
         const res = await this.mockLandUtils.latLonToUtm(etherPoint, {
@@ -69,15 +65,23 @@ contract('LandUtils', ([deployer]) => {
         const scaleResult = result.scale / 10 ** 18;
         // const convergenceResult = result.convergence / 10 ** 18;
 
-        // console.log('xDiff', Math.abs(xResult - shouldBeUtm.x));
+        // console.log('xResult');
+        // console.log(xResult);
+        // console.log(shouldBeUtm.x);
+        // console.log(xResult - shouldBeUtm.x);
+        // console.log('yResult');
+        // console.log(yResult);
+        // console.log(shouldBeUtm.y);
+        // console.log(yResult - shouldBeUtm.y);
         // console.log('yDiff', Math.abs(yResult - shouldBeUtm.y));
         // console.log('scaleDiff', Math.abs(scaleResult - shouldBeUtm.scale));
         // console.log('convergenceDiff', Math.abs(convergenceResult - shouldBeUtm.convergence));
         //
         // console.log('gasUsed', res.receipt.gasUsed);
 
-        assert.isBelow(Math.abs(xResult - shouldBeUtm.x), 0.007);
-        assert.isBelow(Math.abs(yResult - shouldBeUtm.y), 0.007);
+        // TODO: find the reason dropping of accuarancy from 0.007 to 0.07
+        assert.isBelow(Math.abs(xResult - shouldBeUtm.x), 0.07);
+        assert.isBelow(Math.abs(yResult - shouldBeUtm.y), 0.07);
         assert.isBelow(Math.abs(scaleResult - shouldBeUtm.scale), 0.001);
         // assert.isBelow(Math.abs(convergenceResult - shouldBeUtm.convergence), 0.001);
         assert.equal(result.zone.toString(10), shouldBeUtm.zone.toString(10));

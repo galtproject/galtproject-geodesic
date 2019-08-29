@@ -37,6 +37,15 @@ const Helpers = {
   weiToEtherRound(wei, precision = 4) {
     return Helpers.roundToPrecision(Helpers.weiToEther(wei), precision);
   },
+  numberToEvmWord(number) {
+    return web3.utils.padLeft(web3.utils.numberToHex(number), 64);
+  },
+  addressToEvmWord(address) {
+    return web3.utils.padLeft(address, 64);
+  },
+  bytes32ToEvmWord(bytes32) {
+    return web3.utils.padRight(bytes32, 64);
+  },
   log(...args) {
     console.log('>>>', new Date().toLocaleTimeString(), '>>>', ...args);
   },

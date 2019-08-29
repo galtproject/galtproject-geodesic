@@ -94,7 +94,7 @@ library GeohashUtils {
   }
 
   function geohash5zToGeohash(uint256 _geohash5z) pure public returns (int256 height, uint256 geohash5) {
-    height = int32(((_geohash5z & Z_HEIGHT_MASK) >> 96) | Z_INT32_MASK);
+    height = int32((_geohash5z & Z_HEIGHT_MASK) >> 96);
     geohash5 = _geohash5z & Z_GEOHASH5_MASK;
   }
 

@@ -23,8 +23,10 @@ library GeohashUtils {
   uint256 constant Z_INT32_MASK =    uint256(0xfffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000);
   uint256 constant Z_GEOHASH5_MASK = uint256(0x000000000000000000000000000000000000000ffffffffffffffffffffffff);
 
-  int256 constant Z_MIN = int256(-2_147_483_648);
-  int256 constant Z_MAX = int256(2_147_483_647);
+  // -2_147_483_648
+  int256 constant Z_MIN = int256(-2147483648);
+  // 2_147_483_647
+  int256 constant Z_MAX = int256(2147483647);
 
   function geohash5Precision(uint256 _geohash5) internal pure returns (uint8) {
     if (_geohash5 == 0) {

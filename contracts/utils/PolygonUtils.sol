@@ -69,7 +69,6 @@ library PolygonUtils {
   }
 
   function isInsideWithoutCache(
-    LatLonData storage self,
     uint256 _geohash5,
     uint256[] memory _polygon
   )

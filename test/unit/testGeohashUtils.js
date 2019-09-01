@@ -102,29 +102,45 @@ contract('GeoHashUtils', ([deployer]) => {
       });
     });
 
-    describe('#geohash5zToGeohash5()', () => {
+    describe('#geohash5zToHeightAndGeohash5()', () => {
       it('should decode positive height and geohash5', async function() {
-        const res = await this.geohashUtils.geohash5zToGeohash(positiveGeohash5z);
+        const res = await this.geohashUtils.geohash5zToHeightAndGeohash5(positiveGeohash5z);
         assert.equal(res.height, height);
         assert.equal(res.geohash5, geohash5);
       });
 
       it('should decode positive height and geohash5 in bytes32 format', async function() {
-        const res = await this.geohashUtils.geohash5zToGeohashBytes32(positiveGeohash5z);
+        const res = await this.geohashUtils.geohash5zToHeightAndGeohash5Bytes32(positiveGeohash5z);
         assert.equal(res.height, '0x0000000000000000000000000000000000000000000000000000000000004627');
         assert.equal(res.geohash5, '0x0000000000000000000000000000000000000000000000000d0c6c4e93424750');
       });
 
       it('should decode negative height and geohash5', async function() {
-        const res = await this.geohashUtils.geohash5zToGeohash(negativeGeohash5z);
+        const res = await this.geohashUtils.geohash5zToHeightAndGeohash5(negativeGeohash5z);
         assert.equal(res.height, negativeHeight);
         assert.equal(res.geohash5, geohash5);
       });
 
       it('should decode negative height and geohash5 in bytes32 format', async function() {
-        const res = await this.geohashUtils.geohash5zToGeohashBytes32(negativeGeohash5z);
+        const res = await this.geohashUtils.geohash5zToHeightAndGeohash5Bytes32(negativeGeohash5z);
         assert.equal(res.height, '0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffbb722');
         assert.equal(res.geohash5, '0x0000000000000000000000000000000000000000000000000d0c6c4e93424750');
+      });
+    });
+
+    describe('#geohash5zToHeight()', () => {
+      it('should decode positive height and geohash5', async function() {
+        assert.equal(await this.geohashUtils.geohash5zToHeight(positiveGeohash5z), height);
+      });
+
+      it('should decode negative height and geohash5', async function() {
+        assert.equal(await this.geohashUtils.geohash5zToHeight(negativeGeohash5z), negativeHeight);
+      });
+    });
+
+    describe('#geohash5zToHeight()', () => {
+      it('should decode positive height and geohash5', async function() {
+        assert.equal(await this.geohashUtils.geohash5zToGeohash5(positiveGeohash5z), geohash5);
       });
     });
   });

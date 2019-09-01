@@ -93,13 +93,27 @@ library GeohashUtils {
     return bytes32(geohash5ToGeohash5z(_height, _geohash5));
   }
 
-  function geohash5zToGeohash(uint256 _geohash5z) pure public returns (int256 height, uint256 geohash5) {
+  function geohash5zToHeightAndGeohash5(uint256 _geohash5z) pure public returns (int256 height, uint256 geohash5) {
     height = int32((_geohash5z & Z_HEIGHT_MASK) >> 96);
     geohash5 = _geohash5z & Z_GEOHASH5_MASK;
   }
 
-  function geohash5zToGeohashBytes32(uint256 _geohash5z) pure public returns (bytes32 height, bytes32 geohash5) {
-    (int256 x, uint256 y) = geohash5zToGeohash(_geohash5z);
+  function geohash5zToGeohash5(uint256 _geohash5z) pure public returns (uint256) {
+    return _geohash5z & Z_GEOHASH5_MASK;
+  }
+
+  function geohash5zToHeight(uint256 _geohash5z) pure public returns (int256) {
+    return int32((_geohash5z & Z_HEIGHT_MASK) >> 96);
+  }
+
+  function geohash5zToHeightAndGeohash5Bytes32(
+    uint256 _geohash5z
+  )
+    pure
+    public
+    returns (bytes32 height, bytes32 geohash5)
+  {
+    (int256 x, uint256 y) = geohash5zToHeightAndGeohash5(_geohash5z);
     return (bytes32(x), bytes32(y));
   }
 

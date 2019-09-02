@@ -68,6 +68,32 @@ library PolygonUtils {
     return inside;
   }
 
+  function isInsideWithoutCache(
+    uint256 _geohash5,
+    uint256[] memory _polygon
+  )
+    public
+    returns (bool)
+  {
+    (int256 x, int256 y) = LandUtils.geohash5ToLatLon(_geohash5);
+
+    bool inside = false;
+    uint256 j = _polygon.length - 1;
+
+    for (uint256 i = 0; i < _polygon.length; i++) {
+      (int256 xi, int256 yi) = LandUtils.geohash5ToLatLon(_polygon[i]);
+      (int256 xj, int256 yj) = LandUtils.geohash5ToLatLon(_polygon[j]);
+
+      bool intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+      if (intersect) {
+        inside = !inside;
+      }
+      j = i;
+    }
+
+    return inside;
+  }
+
   function isInsideCoors(int256[2] memory _point, CoorsPolygon storage _polygon) internal returns (bool) {
     bool inside = false;
     uint256 j = _polygon.points.length - 1;
@@ -150,9 +176,4 @@ library PolygonUtils {
     }
     return false;
   }
-
-  //  function inSameDirection(int[2] memory firstPoint, int[2] memory secondPoint, int[2] memory thirdPoint) internal returns(bool) {
-  //    return (((secondPoint[0] - firstPoint[0]) * (secondPoint[1] + firstPoint[1])) > 0 ? 1 : -1) == 
-  //    ((thirdPoint[0] - secondPoint[0]) * (thirdPoint[1] + secondPoint[1]) > 0 ? 1 : -1);
-  //  }
 }

@@ -28,6 +28,7 @@ library GeohashUtils {
   // 2_147_483_647
   int256 constant Z_MAX = int256(2147483647);
 
+  // TODO: use uint256 instead
   function geohash5Precision(uint256 _geohash5) internal pure returns (uint8) {
     if (_geohash5 == 0) {
       return 0;
@@ -60,7 +61,7 @@ library GeohashUtils {
     }
   }
 
-  function geohash5ToGeohashString(uint256 _input) public pure returns (bytes32) {
+  function geohash5ToGeohashString(uint256 _input) pure internal returns (bytes32) {
     if (_input > C12_GEOHASH) {
       revert("Number exceeds the limit");
       return 0x0;
@@ -82,32 +83,46 @@ library GeohashUtils {
     return output;
   }
 
-  function geohash5ToGeohash5z(int256 _height, uint256 _geohash5) pure public returns (uint256) {
+  function geohash5ToGeohash5z(int256 _height, uint256 _geohash5) pure internal returns (uint256) {
     requireHeightValid(_height);
     uint256 shiftedHeight = uint256(_height) << 96;
 
     return (_geohash5 | shiftedHeight) & Z_RESERVED_MASK;
   }
 
-  function geohash5ToGeohash5zBytes32(int256 _height, uint256 _geohash5) pure public returns (bytes32) {
+  function geohash5ToGeohash5zBytes32(int256 _height, uint256 _geohash5) pure internal returns (bytes32) {
     return bytes32(geohash5ToGeohash5z(_height, _geohash5));
   }
 
-  function geohash5zToGeohash(uint256 _geohash5z) pure public returns (int256 height, uint256 geohash5) {
+  function geohash5zToHeightAndGeohash5(uint256 _geohash5z) pure internal returns (int256 height, uint256 geohash5) {
     height = int32((_geohash5z & Z_HEIGHT_MASK) >> 96);
     geohash5 = _geohash5z & Z_GEOHASH5_MASK;
   }
 
-  function geohash5zToGeohashBytes32(uint256 _geohash5z) pure public returns (bytes32 height, bytes32 geohash5) {
-    (int256 x, uint256 y) = geohash5zToGeohash(_geohash5z);
+  function geohash5zToGeohash5(uint256 _geohash5z) pure internal returns (uint256) {
+    return _geohash5z & Z_GEOHASH5_MASK;
+  }
+
+  function geohash5zToHeight(uint256 _geohash5z) pure internal returns (int256) {
+    return int32((_geohash5z & Z_HEIGHT_MASK) >> 96);
+  }
+
+  function geohash5zToHeightAndGeohash5Bytes32(
+    uint256 _geohash5z
+  )
+    pure
+    internal
+    returns (bytes32 height, bytes32 geohash5)
+  {
+    (int256 x, uint256 y) = geohash5zToHeightAndGeohash5(_geohash5z);
     return (bytes32(x), bytes32(y));
   }
 
-  function requireHeightValid(int256 _height) pure public {
+  function requireHeightValid(int256 _height) pure internal {
     require(Z_MIN <= _height && _height <= Z_MAX, "GeohashUtils: height overflow");
   }
 
-  function isHeightValid(int256 _height) pure public returns (bool) {
+  function isHeightValid(int256 _height) pure internal returns (bool) {
     return (Z_MIN <= _height && _height <= Z_MAX);
   }
 

@@ -71,7 +71,7 @@ library SweepEventUtils {
     return !isBelow(store, self, p);
   }
 
-  function compareSegments(SweepEvent.Store storage store, SweepEvent.Item storage le1, SweepEvent.Item storage le2) internal returns(int8) {
+  function compareSegments(SweepEvent.Store storage store, SweepEvent.Item storage le1, SweepEvent.Item storage le2) internal view returns(int8) {
     if (le1.id == le2.id) {
       return 0;
     }

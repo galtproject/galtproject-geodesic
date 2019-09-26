@@ -39,6 +39,18 @@ contract('PolygonUtils', ([coreTeam]) => {
     };
   });
 
+  describe('#isInsideWithoutCache()', () => {
+    it('should return false for a point on a contour edge', async function() {
+      const rawContour3 = ['qqqqqqq9q8yc', 'qqqqqqq9q8ym', 'qqqqqqq9q8yj', 'qqqqqqq9q8y4'];
+      const contour3 = rawContour3.map(galt.geohashToNumber).map(a => a.toString(10));
+
+      assert.equal(
+        await this.polygonUtils.isInsideWithoutCache(galt.geohashToNumber('qqqqqqq9q8ys').toString(10), contour3),
+        false
+      );
+    });
+  });
+
   describe('#getArea()', () => {
     // https://geographiclib.sourceforge.io/cgi-bin/Planimeter
 

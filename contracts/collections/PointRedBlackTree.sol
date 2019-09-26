@@ -71,7 +71,7 @@ library PointRedBlackTree {
     points.tree.inserted++;
   }
 
-  function getNewId(PointsTree storage points) public returns(uint256) {
+  function getNewId(PointsTree storage points) public view returns(uint256) {
     return points.tree.inserted + 1;
   }
   
@@ -80,7 +80,7 @@ library PointRedBlackTree {
     value = points.values[id];
   }
   
-  function isEmpty(PointsTree storage points) public returns(bool) {
+  function isEmpty(PointsTree storage points) public view returns(bool) {
     return points.tree.inserted == points.tree.removed;
   }
 }

@@ -23,22 +23,6 @@ library SweepQueueRedBlackTree {
   
   uint internal constant ZERO = 0;
 
-//  function find(SweepEvent.Tree storage sweepEvents, SweepEvent.Store storage store, SweepEvent.Item value) public returns (uint) {
-//    uint _key = sweepEvents.tree.root;
-//    while (_key != ZERO) {
-//      int8 compareResult = SweepEventUtils.compareEvents(store, value, sweepEvents.values[_key]);
-//      if (compareResult == 0) {
-//        return _key;
-//      }
-//      if (compareResult < 0) {
-//        _key = sweepEvents.tree.items[_key].left;
-//      } else {
-//        _key = sweepEvents.tree.items[_key].right;
-//      }
-//    }
-//    return ZERO;
-//  }
-
   event LogCompareEvents(int256[2] point1, int256[2] point2, int8 compareResult);
   
   function insert(SweepEvent.Tree storage sweepEvents, SweepEvent.Store storage store, uint key) internal {
@@ -47,8 +31,6 @@ library SweepQueueRedBlackTree {
     while (x != ZERO) {
       y = x;
       int8 compareResult = SweepEventUtils.compareEvents(store, store.sweepById[key], store.sweepById[x]);
-      
-//      emit LogCompareEvents(store.sweepById[key].point, store.sweepById[x].point, compareResult);
       
       if (compareResult < 0) {
         x = sweepEvents.tree.items[x].left;
@@ -60,7 +42,6 @@ library SweepQueueRedBlackTree {
       }
     }
     sweepEvents.tree.items[key] = RedBlackTree.Item(y, ZERO, ZERO, true);
-//    sweepEvents.values[key] = value;
 
     if (y == ZERO) {
       sweepEvents.tree.root = key;
@@ -73,7 +54,7 @@ library SweepQueueRedBlackTree {
     sweepEvents.tree.inserted++;
   }
 
-  function getNewId(SweepEvent.Tree storage sweepEvents) public returns(uint256) {
+  function getNewId(SweepEvent.Tree storage sweepEvents) public view returns(uint256) {
     return sweepEvents.tree.inserted + 1;
   }
 }

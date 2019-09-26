@@ -91,11 +91,11 @@ library SegmentUtils {
     return [x, y];
   }
 
-  function isEqual(int[2][2] memory a, int[2][2] memory b) internal view returns (bool) {
+  function isEqual(int[2][2] memory a, int[2][2] memory b) internal pure returns (bool) {
     return b[0][0] == a[0][0] && b[0][1] != a[0][1] && b[1][0] == a[1][0] && b[1][1] != a[1][1];
   }
 
-  function compareSegments(Sweepline storage sweepline, int[2][2] memory a, int[2][2] memory b) internal returns (int8) {
+  function compareSegments(Sweepline storage sweepline, int[2][2] memory a, int[2][2] memory b) internal view returns (int8) {
     if (isEqual(a, b)) {
       return int8(0);
     }
@@ -136,7 +136,7 @@ library SegmentUtils {
     }
   }
 
-  function getY(int[2][2] memory segment, int x) internal returns (int) {
+  function getY(int[2][2] memory segment, int x) internal pure returns (int) {
     if (x <= segment[0][0]) {
       return segment[0][1];
     } else if (x >= segment[1][0]) {
@@ -152,7 +152,7 @@ library SegmentUtils {
     }
   }
 
-  function cmp(int x, int y) internal view returns (int) {
+  function cmp(int x, int y) internal pure returns (int) {
     if (x == y) {
       return 0;
     }
@@ -163,24 +163,7 @@ library SegmentUtils {
     }
   }
 
-  event LogPoint(string s, int[2] p);
-  // Return true iff point c intersects the line segment from a to b.
-  //  function pointOnSegment(int[2] c, int[2] a, int[2] b) internal returns (bool) {
-  //    emit LogPoint("c", c);
-  //    emit LogPoint("a", a);
-  //    emit LogPoint("b", b);
-  //    return ((b[0] - a[0]) * (c[1] - a[1]) == (c[0] - a[0]) * (b[1] - a[1]))
-  //            && MathUtils.abs(cmp(a[0], c[0]) + cmp(b[0], c[0])) <= 1
-  //            && MathUtils.abs(cmp(a[1], c[1]) + cmp(b[1], c[1])) <= 1;
-  //  }
-
-  event LogDiff(int diff);
-
-  function pointOnSegment(int[2] memory point, int[2] memory sp1, int[2] memory sp2) internal returns (bool) {
-    emit LogPoint("c", point);
-    emit LogPoint("a", sp1);
-    emit LogPoint("b", sp2);
-
+  function pointOnSegment(int[2] memory point, int[2] memory sp1, int[2] memory sp2) internal pure returns (bool) {
     // compare versus epsilon for floating point values, or != 0 if using integers
     if (MathUtils.abs((point[1] - sp1[1]) * (sp2[0] - sp1[0]) - (point[0] - sp1[0]) * (sp2[1] - sp1[1])) > POS_EPS) {
       return false;

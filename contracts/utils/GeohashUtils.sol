@@ -64,7 +64,6 @@ library GeohashUtils {
   function geohash5ToGeohashString(uint256 _input) pure internal returns (bytes32) {
     if (_input > C12_GEOHASH) {
       revert("Number exceeds the limit");
-      return 0x0;
     }
 
     uint256 num = _input;

@@ -19,7 +19,13 @@ import "./SegmentUtils.sol";
 
 
 library PolygonUtils {
-  struct LatLonData {mapping(uint => int256[2]) latLonByGeohash;}
+
+  int256 public constant RADIUS = 6378137;
+  int256 public constant PI = 3141592653589793300;
+
+  struct LatLonData {
+    mapping(uint => int256[2]) latLonByGeohash;
+  }
 
   struct CoorsPolygon {
     int256[2][] points;
@@ -28,12 +34,6 @@ library PolygonUtils {
   struct UtmPolygon {
     int256[3][] points;
   }
-
-  int constant RADIUS = 6378137;
-  int constant PI = 3141592653589793300;
-
-  event LogPoint(int256[2] point);
-  event LogPolygonPoint(int256[2] point);
 
   function geohash5ToLatLonArr(LatLonData storage self, uint256 _geohash5) internal returns (int256[2] memory) {
     (int256 lat, int256 lon) = geohash5ToLatLon(self, _geohash5);
@@ -73,6 +73,7 @@ library PolygonUtils {
     uint256[] memory _polygon
   )
     public
+    pure
     returns (bool)
   {
     (int256 x, int256 y) = LandUtils.geohash5ToLatLon(_geohash5);
@@ -94,13 +95,11 @@ library PolygonUtils {
     return inside;
   }
 
-  function isInsideCoors(int256[2] memory _point, CoorsPolygon storage _polygon) internal returns (bool) {
+  function isInsideCoors(int256[2] memory _point, CoorsPolygon storage _polygon) internal view returns (bool) {
     bool inside = false;
     uint256 j = _polygon.points.length - 1;
 
-    //    emit LogPoint(_point);
     for (uint256 i = 0; i < _polygon.points.length; i++) {
-      //      emit LogPolygonPoint(_polygon.points[i]);
       bool intersect = ((_polygon.points[i][1] > _point[1]) != (_polygon.points[j][1] > _point[1])) && (_point[0] < (_polygon.points[j][0] - _polygon.points[i][0]) * (_point[1] - _polygon.points[i][1]) / (_polygon.points[j][1] - _polygon.points[i][1]) + _polygon.points[i][0]);
       if (intersect) {
         inside = !inside;
@@ -112,12 +111,12 @@ library PolygonUtils {
   }
 
   //TODO: test it
-  function isClockwise(int[2] memory firstPoint, int[2] memory secondPoint, int[2] memory thirdPoint) internal returns (bool) {
+  function isClockwise(int[2] memory firstPoint, int[2] memory secondPoint, int[2] memory thirdPoint) internal pure returns (bool) {
     return (((secondPoint[0] - firstPoint[0]) * (secondPoint[1] + firstPoint[1])) +
     ((thirdPoint[0] - secondPoint[0]) * (thirdPoint[1] + secondPoint[1]))) > 0;
   }
 
-  function getUtmArea(UtmPolygon memory _polygon) internal view returns (uint result) {
+  function getUtmArea(UtmPolygon memory _polygon) internal pure returns (uint result) {
     int area = 0;
     // Accumulates area in the loop
     uint j = _polygon.points.length - 1;
@@ -147,11 +146,11 @@ library PolygonUtils {
     result = (uint(area * 1 ether) / ((uint(scaleSum / int(_polygon.points.length)) ** uint(2)) / 1 ether)) / 2;
   }
 
-  function rad(int angle) internal returns (int) {
+  function rad(int angle) internal pure returns (int) {
     return angle * PI / 180 / 1 ether;
   }
 
-  function isSelfIntersected(CoorsPolygon storage _polygon) public returns (bool) {
+  function isSelfIntersected(CoorsPolygon storage _polygon) public view returns (bool) {
     for (uint256 i = 0; i < _polygon.points.length; i++) {
       int256[2] storage iaPoint = _polygon.points[i];
       uint256 ibIndex = i == _polygon.points.length - 1 ? 0 : i + 1;

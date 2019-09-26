@@ -34,7 +34,7 @@ library SweepQueueLinkedList {
   event CompareResult3(int8 compareResult);
   
   //TODO: optimize
-  function search(LinkedList.Data storage data, SweepEvent.Store storage store, uint256 valueId, bool returnLeft) public returns (uint256) {
+  function search(LinkedList.Data storage data, SweepEvent.Store storage store, uint256 valueId, bool returnLeft) public view returns (uint256) {
     // console.log('binarySearch begin', returnLeft, headId, nodesByIds);
     if (data.headId == 0) {
       return 0;

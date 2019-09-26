@@ -282,7 +282,7 @@ library MartinezRueda {
     sweepEvent.inResult = inResult(sweepEvent, operation);
   }
 
-  function inResult(SweepEvent.Item storage sweepEvent, Operation operation) private returns (bool) {
+  function inResult(SweepEvent.Item storage sweepEvent, Operation operation) private view returns (bool) {
     if (sweepEvent.eventType == SweepEvent.Type.NORMAL) {
       if (operation == Operation.INTERSECTION) {
         return !sweepEvent.otherInOut;
@@ -476,7 +476,7 @@ library MartinezRueda {
   }
 
   //function to convert back to regular point form:
-  function toPoint(int256[2] memory p, int256 s, int256[2] memory d) private returns (int256[2] memory) {
+  function toPoint(int256[2] memory p, int256 s, int256[2] memory d) private pure returns (int256[2] memory) {
     return [
       p[0] + s * d[0] / 1 szabo,
       p[1] + s * d[1] / 1 szabo
@@ -486,18 +486,18 @@ library MartinezRueda {
    * Finds the magnitude of the cross product of two vectors (if we pretend
    * they're in three dimensions)
    */
-  function crossProduct(int256[2] memory a, int256[2] memory b) private returns (int256) {
+  function crossProduct(int256[2] memory a, int256[2] memory b) private pure returns (int256) {
     return (a[0] * b[1]) - (a[1] * b[0]);
   }
 
   /**
  * Finds the dot product of two vectors.
  */
-  function dotProduct(int256[2] memory a, int256[2] memory b) private returns (int256) {
+  function dotProduct(int256[2] memory a, int256[2] memory b) private pure returns (int256) {
     return (a[0] * b[0]) + (a[1] * b[1]);
   }
 
-  function divideToSzabo(int256 a, int256 b) private returns (int256) {
+  function divideToSzabo(int256 a, int256 b) private pure returns (int256) {
     return (a * 1 szabo) / b;
   }
 
@@ -595,7 +595,7 @@ library MartinezRueda {
     return segmentIntersectionStage2(a1, va, vb, e, sqrLenA);
   }
 
-  function segmentIntersectionStage2(int256[2] memory a1, int256[2] memory va, int256[2] memory vb, int256[2] memory e, int256 sqrLenA) private returns (int256[2][2] memory result) {
+  function segmentIntersectionStage2(int256[2] memory a1, int256[2] memory va, int256[2] memory vb, int256[2] memory e, int256 sqrLenA) private view returns (int256[2][2] memory result) {
     int256 sa = divideToSzabo(dotProduct(va, e), sqrLenA);
     int256 sb = divideToSzabo(sa + dotProduct(va, vb), sqrLenA);
     int256 smin = MathUtils.minInt(sa, sb);
@@ -786,7 +786,7 @@ library MartinezRueda {
   //  }
 
 
-  function isSubdivideSegmentsOver(State storage state) public returns (bool) {
+  function isSubdivideSegmentsOver(State storage state) public view returns (bool) {
     return state.subdivideSegmentsOver;
   }
 }

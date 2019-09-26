@@ -28,7 +28,7 @@ library SegmentRedBlackTree {
   
   uint internal constant ZERO = 0;
 
-  function find(SegmentsTree storage segments, int256[2][2] memory value) public returns (uint) {
+  function find(SegmentsTree storage segments, int256[2][2] memory value) public view returns (uint) {
     uint _key = segments.tree.root;
     while (_key != ZERO) {
       int8 compareResult = SegmentUtils.compareSegments(segments.sweepline, value, segments.values[_key]);
@@ -81,7 +81,7 @@ library SegmentRedBlackTree {
     segments.sweepline.position = position;
   }
 
-  function getNewId(SegmentsTree storage segments) public returns(uint256) {
+  function getNewId(SegmentsTree storage segments) public view returns(uint256) {
     return segments.tree.inserted + 1;
   }
 

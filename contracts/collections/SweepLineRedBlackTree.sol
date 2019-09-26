@@ -23,22 +23,6 @@ library SweepLineRedBlackTree {
   
   uint internal constant ZERO = 0;
 
-//  function find(SweepEvent.Tree storage sweepEvents, SweepEvent.Store storage store, SweepEvent.Item memory value) public returns (uint) {
-//    uint _key = sweepEvents.tree.root;
-//    while (_key != ZERO) {
-//      int8 compareResult = SweepEventUtils.compareSegments(store, value, sweepEvents.values[_key]);
-//      if (compareResult == 0) {
-//        return _key;
-//      }
-//      if (compareResult < 0) {
-//        _key = sweepEvents.tree.items[_key].left;
-//      } else {
-//        _key = sweepEvents.tree.items[_key].right;
-//      }
-//    }
-//    return ZERO;
-//  }
-  
   function insert(SweepEvent.Tree storage sweepEvents, SweepEvent.Store storage store, uint key) internal {
     uint y = ZERO;
     uint x = sweepEvents.tree.root;
@@ -57,8 +41,6 @@ library SweepLineRedBlackTree {
     }
     sweepEvents.tree.items[key].parent = y;
     sweepEvents.tree.items[key].red = true;
-//    sweepEvents.tree.items[key] = RedBlackTree.Item(y, ZERO, ZERO, true);
-//    sweepEvents.exists[key] = true;
 
     if (y == ZERO) {
       sweepEvents.tree.root = key;
@@ -72,7 +54,7 @@ library SweepLineRedBlackTree {
   }
   
 
-  function getNewId(SweepEvent.Tree storage sweepEvents) public returns(uint256) {
+  function getNewId(SweepEvent.Tree storage sweepEvents) public view returns(uint256) {
     return sweepEvents.tree.inserted + 1;
   }
 }

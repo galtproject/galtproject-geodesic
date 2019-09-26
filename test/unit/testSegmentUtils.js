@@ -34,10 +34,13 @@ contract('SegmentUtils', ([coreTeam]) => {
 
       const intersectSegments = [[[2, 2], [2, -2]], [[-1, 1], [3, 1]]];
       const notIntersectSegments = [[[-1, 1], [-1, -1]], [[1, 1], [1, -1]]];
+      const sameSegments = [[[7777777777, 88888888], [-11111111, -3333]], [[7777777777, 88888888], [-11111111, -3333]]];
 
       await this.segmentsIntersect(intersectSegments[0], intersectSegments[1], true);
 
       await this.segmentsIntersect(notIntersectSegments[0], notIntersectSegments[1], false);
+
+      await this.segmentsIntersect(sameSegments[0], sameSegments[1], true);
     });
   });
 

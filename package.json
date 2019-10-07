@@ -31,6 +31,7 @@
   },
   "repository": "https://github.com/galtspace/galtproject-geodesic",
   "scripts": {
+    "compile": "truffle compile",
     "eslint": "eslint .",
     "ethlint": "solium --dir .",
     "test": "truffle test --network test"

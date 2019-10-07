@@ -17,6 +17,8 @@ jobs:
       with:
         node-version: '10.x'
     - name: Run tests
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
       run: |
         eval $(ssh-agent -s)
         echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null

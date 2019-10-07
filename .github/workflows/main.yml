@@ -1,0 +1,29 @@
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Solidity compiler
+      run: |
+        wget https://github.com/ethereum/solidity/releases/download/v0.5.10/solc-static-linux
+        chmod ugo+x solc-static-linux
+        sudo mv solc-static-linux /usr/bin/solc
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Run tests
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      run: |
+        eval $(ssh-agent -s)
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        mkdir -p ~/.ssh
+        chmod 700 ~/.ssh
+        ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        npm install
+        npm run eslint && npm run ethlint && npm run compile && npm run test

@@ -1,15 +1,12 @@
 /*
- * Copyright ©️ 2018 Galt•Space Society Construction and Terraforming Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka),
- * [Dima Starodubcev](https://github.com/xhipster),
- * [Valery Litvin](https://github.com/litvintech) by
- * [Basic Agreement](http://cyb.ai/QmSAWEG5u5aSsUyMNYuX2A2Eaz4kEuoYWUkVBRdmu9qmct:ipfs)).
+ * Copyright ©️ 2018 Galt•Project Society Construction and Terraforming Company
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka)
  *
  * Copyright ©️ 2018 Galt•Core Blockchain Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka) and
- * Galt•Space Society Construction and Terraforming Company by
- * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka) by
+ * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
+
 pragma solidity 0.5.10;
 
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
@@ -76,13 +73,13 @@ contract Geodesic is IGeodesic, Ownable {
     latLonData.utmByLatLonHash[pointHash] = LandUtils.latLonToUtmCompressed(point[0], point[1]);
     return latLonData.utmByLatLonHash[pointHash];
   }
-  
+
   function cacheLatLonListToUtm(int256[2][] memory _pointList) public {
     for (uint i = 0; i < _pointList.length; i++) {
       cacheLatLonToUtm(_pointList[i]);
     }
   }
-  
+
   function calculateContourArea(uint256[] calldata contour) external returns (uint256 area) {
     PolygonUtils.UtmPolygon memory p;
     p.points = new int256[3][](contour.length);

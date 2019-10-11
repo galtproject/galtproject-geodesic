@@ -1,15 +1,12 @@
 /*
- * Copyright ©️ 2018 Galt•Space Society Construction and Terraforming Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka),
- * [Dima Starodubcev](https://github.com/xhipster),
- * [Valery Litvin](https://github.com/litvintech) by
- * [Basic Agreement](http://cyb.ai/QmSAWEG5u5aSsUyMNYuX2A2Eaz4kEuoYWUkVBRdmu9qmct:ipfs)).
+ * Copyright ©️ 2018 Galt•Project Society Construction and Terraforming Company
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka)
  *
  * Copyright ©️ 2018 Galt•Core Blockchain Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka) and
- * Galt•Space Society Construction and Terraforming Company by
- * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka) by
+ * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
+
 pragma solidity 0.5.10;
 
 import "@galtproject/math/contracts/MathUtils.sol";
@@ -70,7 +67,7 @@ library MartinezRueda {
   }
 
   function initMartinezRueda(State storage state) public {
-    //transaction reverted on maxHandleQueuePointsPerCall = 16 
+    //transaction reverted on maxHandleQueuePointsPerCall = 16
     state.maxHandleQueuePointsPerCall = 6;
 
     state.subjectBbox = [MathUtils.INT256_MAX(), MathUtils.INT256_MAX(), MathUtils.INT256_MIN(), MathUtils.INT256_MIN()];
@@ -134,7 +131,7 @@ library MartinezRueda {
 
       // Pushing it so the queue is sorted from left to right,
       // with object on the left having the highest priority.
-      //      
+      //
       //      emit LogProcessPolygonInsert(e1.point);
       //      emit LogProcessPolygonInsert(e2.point);
       SweepQueueLinkedList.insert(state.eventQueue, state.store, e1Id);
@@ -649,7 +646,7 @@ library MartinezRueda {
 
     for (uint i = 0; i < state.sortedEvents.length; i++) {
       //      sweepEvent = state.store.sweepById[state.sortedEvents[i]];
-      if (((state.store.sweepById[state.sortedEvents[i]].left && state.store.sweepById[state.sortedEvents[i]].inResult) || (!state.store.sweepById[state.sortedEvents[i]].left && state.store.sweepById[state.store.sweepById[state.sortedEvents[i]].otherEvent].inResult))) {//sweepEvent.isSubject && 
+      if (((state.store.sweepById[state.sortedEvents[i]].left && state.store.sweepById[state.sortedEvents[i]].inResult) || (!state.store.sweepById[state.sortedEvents[i]].left && state.store.sweepById[state.store.sweepById[state.sortedEvents[i]].otherEvent].inResult))) {//sweepEvent.isSubject &&
         state.resultEvents.push(state.store.sweepById[state.sortedEvents[i]].id);
         //        emit ResultPush(sweepEvent.id, sweepEvent.point, sweepEvent.left, sweepEvent.inResult, sweepEvent.isSubject, sweepEvent.contourId);
       }

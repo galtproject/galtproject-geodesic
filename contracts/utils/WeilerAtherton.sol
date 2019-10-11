@@ -1,15 +1,12 @@
 /*
- * Copyright ©️ 2018 Galt•Space Society Construction and Terraforming Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka),
- * [Dima Starodubcev](https://github.com/xhipster),
- * [Valery Litvin](https://github.com/litvintech) by
- * [Basic Agreement](http://cyb.ai/QmSAWEG5u5aSsUyMNYuX2A2Eaz4kEuoYWUkVBRdmu9qmct:ipfs)).
+ * Copyright ©️ 2018 Galt•Project Society Construction and Terraforming Company
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka)
  *
  * Copyright ©️ 2018 Galt•Core Blockchain Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka) and
- * Galt•Space Society Construction and Terraforming Company by
- * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka) by
+ * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
+
 pragma solidity 0.5.10;
 
 import "./MartinezRueda.sol";
@@ -148,7 +145,7 @@ library WeilerAtherton {
       }
 
 //      emit LogPoint("newPointHash", state.martinezRueda.store.sweepById[state.martinezRueda.resultEvents[j]].point);
-      // TODO: reject if point on more then one segment in one polygon  
+      // TODO: reject if point on more then one segment in one polygon
       if (addIntersectedPointsToPolygon(state, state.subjectPolygon, state.martinezRueda.store.sweepById[state.martinezRueda.resultEvents[j]].point, newPointHash)) {
         if (!addIntersectedPointsToPolygon(state, state.clippingPolygon, state.martinezRueda.store.sweepById[state.martinezRueda.resultEvents[j]].point, newPointHash)) {
           emit LogFailed("Intersected point of subject polygon not found in clipping polygon");
@@ -198,9 +195,9 @@ library WeilerAtherton {
   }
 
   //  function initResultPolygon() {
-  //    
+  //
   //  }
-  //  
+  //
   event LogInsideCoors(int256[2] point, bool intersectionPoint);
   event LogPolygonCoors(int256[2] point);
 
@@ -296,7 +293,7 @@ library WeilerAtherton {
     }
 
     Direction clippingDirection;
-    //    
+    //
     //    emit LogPoint("prevPointHash", state.latLonByHash[prevPointHash]);
     //    emit LogPoint("curPointHash", state.latLonByHash[curPointHash]);
     //    emit LogInsideCoors(state.latLonByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint], state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint].intersectionPoint);
@@ -308,11 +305,11 @@ library WeilerAtherton {
 
     // find direction and next point
     //TODO: need to add OR intersection point?
-    if (state.clippingPolygon.pointByHash[curPointHash].nextPoint != prevPointHash//!state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint].includedInResult && 
+    if (state.clippingPolygon.pointByHash[curPointHash].nextPoint != prevPointHash//!state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint].includedInResult &&
     && (state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint].intersectionPoint || PolygonUtils.isInsideCoors(state.latLonByHash[state.clippingPolygon.pointByHash[curPointHash].nextPoint], state.martinezRueda.subject))) {
       nextPointHash = state.clippingPolygon.pointByHash[curPointHash].nextPoint;
       clippingDirection = Direction.FORWARD;
-    } else if (state.clippingPolygon.pointByHash[curPointHash].prevPoint != prevPointHash//!state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].prevPoint].includedInResult && 
+    } else if (state.clippingPolygon.pointByHash[curPointHash].prevPoint != prevPointHash//!state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].prevPoint].includedInResult &&
     && (state.subjectPolygon.pointByHash[state.clippingPolygon.pointByHash[curPointHash].prevPoint].intersectionPoint || PolygonUtils.isInsideCoors(state.latLonByHash[state.clippingPolygon.pointByHash[curPointHash].prevPoint], state.martinezRueda.subject))) {
       nextPointHash = state.clippingPolygon.pointByHash[curPointHash].prevPoint;
       clippingDirection = Direction.BACKWARD;
@@ -333,7 +330,7 @@ library WeilerAtherton {
       if (state.clippingPolygon.pointByHash[curPointHash].intersectionPoint) {
         require(state.subjectPolygon.pointByHash[curPointHash].intersectionPoint, "Self intersected clipping polygons not supported");
         require(!state.clippingPolygon.pointByHash[curPointHash].includedInResult, "clippingPolygon current intersectionPoint already included");
-        
+
         state.clippingPolygon.handledIntersectionPoints++;
         state.clippingPolygon.pointByHash[curPointHash].includedInResult = true;
         emit LogIncludeIntersectionInResult("clipping cur", state.latLonByHash[curPointHash], state.clippingPolygon.handledIntersectionPoints);
@@ -341,10 +338,10 @@ library WeilerAtherton {
 
       if (state.clippingPolygon.pointByHash[nextPointHash].intersectionPoint) {
         require(state.subjectPolygon.pointByHash[nextPointHash].intersectionPoint, "Self intersected clipping polygons not supported");
-        
+
         if (PointUtils.isEqual(state.latLonByHash[nextPointHash], resultPolygon.points[0])) {
           require(!state.clippingPolygon.pointByHash[nextPointHash].includedInResult, "clippingPolygon next intersectionPoint already included");
-          
+
           state.clippingPolygon.handledIntersectionPoints++;
           state.clippingPolygon.pointByHash[nextPointHash].includedInResult = true;
           emit LogIncludeIntersectionInResult("clipping next", state.latLonByHash[nextPointHash], state.clippingPolygon.handledIntersectionPoints);

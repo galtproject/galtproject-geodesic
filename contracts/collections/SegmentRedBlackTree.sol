@@ -1,15 +1,12 @@
 /*
- * Copyright ©️ 2018 Galt•Space Society Construction and Terraforming Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka),
- * [Dima Starodubcev](https://github.com/xhipster),
- * [Valery Litvin](https://github.com/litvintech) by
- * [Basic Agreement](http://cyb.ai/QmSAWEG5u5aSsUyMNYuX2A2Eaz4kEuoYWUkVBRdmu9qmct:ipfs)).
+ * Copyright ©️ 2018 Galt•Project Society Construction and Terraforming Company
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka)
  *
  * Copyright ©️ 2018 Galt•Core Blockchain Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka) and
- * Galt•Space Society Construction and Terraforming Company by
- * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka) by
+ * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
+
 pragma solidity 0.5.10;
 
 
@@ -19,13 +16,13 @@ import "../utils/SegmentUtils.sol";
 
 library SegmentRedBlackTree {
   using RedBlackTree for RedBlackTree.Tree;
-  
+
   struct SegmentsTree {
     RedBlackTree.Tree tree;
     SegmentUtils.Sweepline sweepline;
     mapping(uint => int256[2][2]) values;
   }
-  
+
   uint internal constant ZERO = 0;
 
   function find(SegmentsTree storage segments, int256[2][2] memory value) public view returns (uint) {
@@ -43,7 +40,7 @@ library SegmentRedBlackTree {
     }
     return ZERO;
   }
-  
+
   function insert(SegmentsTree storage segments, uint key, int256[2][2] memory value) public {
     uint y = ZERO;
     uint x = segments.tree.root;
@@ -72,7 +69,7 @@ library SegmentRedBlackTree {
     segments.tree.insertFixup(key);
     segments.tree.inserted++;
   }
-  
+
   function setSweeplineX(SegmentsTree storage segments, int256 x) public {
     segments.sweepline.x = x;
   }

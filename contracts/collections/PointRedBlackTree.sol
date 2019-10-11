@@ -1,15 +1,12 @@
 /*
- * Copyright ©️ 2018 Galt•Space Society Construction and Terraforming Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka),
- * [Dima Starodubcev](https://github.com/xhipster),
- * [Valery Litvin](https://github.com/litvintech) by
- * [Basic Agreement](http://cyb.ai/QmSAWEG5u5aSsUyMNYuX2A2Eaz4kEuoYWUkVBRdmu9qmct:ipfs)).
+ * Copyright ©️ 2018 Galt•Project Society Construction and Terraforming Company
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka)
  *
  * Copyright ©️ 2018 Galt•Core Blockchain Company
- * (Founded by [Nikolai Popeka](https://github.com/npopeka) and
- * Galt•Space Society Construction and Terraforming Company by
- * [Basic Agreement](http://cyb.ai/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS:ipfs)).
+ * (Founded by [Nikolai Popeka](https://github.com/npopeka) by
+ * [Basic Agreement](ipfs/QmaCiXUmSrP16Gz8Jdzq6AJESY1EAANmmwha15uR3c1bsS)).
  */
+
 pragma solidity 0.5.10;
 
 import "@galtproject/libs/contracts/collections/RedBlackTree.sol";
@@ -18,12 +15,12 @@ import "../utils/PointUtils.sol";
 
 library PointRedBlackTree {
   using RedBlackTree for RedBlackTree.Tree;
-  
+
   struct PointsTree {
     RedBlackTree.Tree tree;
     mapping(uint => int256[2]) values;
   }
-  
+
   uint internal constant ZERO = 0;
 
   function find(PointsTree storage points, int256[2] memory value) public view returns (uint) {
@@ -41,7 +38,7 @@ library PointRedBlackTree {
     }
     return ZERO;
   }
-  
+
   function insert(PointsTree storage points, uint key, int256[2] memory value) public {
     uint y = ZERO;
     uint x = points.tree.root;
@@ -74,12 +71,12 @@ library PointRedBlackTree {
   function getNewId(PointsTree storage points) public view returns(uint256) {
     return points.tree.inserted + 1;
   }
-  
+
   function pop(PointsTree storage points) public returns(uint256 id, int256[2] memory value) {
     id = points.tree.pop();
     value = points.values[id];
   }
-  
+
   function isEmpty(PointsTree storage points) public view returns(bool) {
     return points.tree.inserted == points.tree.removed;
   }

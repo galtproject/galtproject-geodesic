@@ -12,31 +12,30 @@ pragma solidity ^0.5.13;
 import "../utils/LandUtils.sol";
 
 
-contract IGeodesic {
-  LandUtils.LatLonData private geodesicData;
+interface IGeodesic {
   event ContourAreaCalculate(uint256[] contour, uint256 area);
 
-  function cacheGeohashToLatLon(uint256 _geohash) public returns (int256[2] memory);
+  function cacheGeohashToLatLon(uint256 _geohash) external returns (int256[2] memory);
 
-  function cacheGeohashListToLatLon(uint256[] memory _geohashList) public;
+  function cacheGeohashListToLatLon(uint256[] calldata _geohashList) external;
 
-  function cacheGeohashToLatLonAndUtm(uint256 _geohash) public returns (int256[3] memory);
+  function cacheGeohashToLatLonAndUtm(uint256 _geohash) external returns (int256[3] memory);
 
-  function cacheLatLonToGeohash(int256[2] memory point, uint8 precision) public returns (uint256);
+  function cacheLatLonToGeohash(int256[2] calldata point, uint8 precision) external returns (uint256);
 
-  function cacheLatLonListToGeohash(int256[2][] memory _pointList, uint8 precision) public;
+  function cacheLatLonListToGeohash(int256[2][] calldata _pointList, uint8 precision) external;
 
   function calculateContourArea(uint256[] calldata contour) external returns (uint256 area);
 
   function getContourArea(uint256[] calldata contour) external view returns (uint256 area);
 
-  function getCachedLatLonByGeohash(uint256 _geohash) public view returns (int256[2] memory);
+  function getCachedLatLonByGeohash(uint256 _geohash) external view returns (int256[2] memory);
 
-  function getCachedGeohashByLatLon(int256[2] memory point, uint8 precision) public view returns (uint256);
+  function getCachedGeohashByLatLon(int256[2] calldata point, uint8 precision) external view returns (uint256);
 
-  function getCachedUtmByGeohash(uint256 _geohash) public view returns (int256[3] memory);
+  function getCachedUtmByGeohash(uint256 _geohash) external view returns (int256[3] memory);
 
-  function getCachedUtmByLatLon(int256[2] memory point) public view returns (int256[3] memory);
+  function getCachedUtmByLatLon(int256[2] calldata point) external view returns (int256[3] memory);
 
   function getNotCachedGeohashes(uint256[] calldata _geohashList) external view returns (uint256[] memory);
 }

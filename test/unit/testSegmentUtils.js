@@ -32,9 +32,36 @@ contract('SegmentUtils', ([coreTeam]) => {
       };
       // Helpers end
 
-      const intersectSegments = [[[2, 2], [2, -2]], [[-1, 1], [3, 1]]];
-      const notIntersectSegments = [[[-1, 1], [-1, -1]], [[1, 1], [1, -1]]];
-      const sameSegments = [[[7777777777, 88888888], [-11111111, -3333]], [[7777777777, 88888888], [-11111111, -3333]]];
+      const intersectSegments = [
+        [
+          [2, 2],
+          [2, -2]
+        ],
+        [
+          [-1, 1],
+          [3, 1]
+        ]
+      ];
+      const notIntersectSegments = [
+        [
+          [-1, 1],
+          [-1, -1]
+        ],
+        [
+          [1, 1],
+          [1, -1]
+        ]
+      ];
+      const sameSegments = [
+        [
+          [7777777777, 88888888],
+          [-11111111, -3333]
+        ],
+        [
+          [7777777777, 88888888],
+          [-11111111, -3333]
+        ]
+      ];
 
       await this.segmentsIntersect(intersectSegments[0], intersectSegments[1], true);
 
@@ -55,13 +82,34 @@ contract('SegmentUtils', ([coreTeam]) => {
         const res = await this.mockSegmentUtils.findSegmentsIntersection(segment1, segment2, {
           from: coreTeam
         });
-        assert.deepEqual(res.logs[0].args.result.map(a => a.toString(10)), expectedResult.map(a => a.toString(10)));
+        assert.deepEqual(
+          res.logs[0].args.result.map(a => a.toString(10)),
+          expectedResult.map(a => a.toString(10))
+        );
         // number += 1;
       };
       // Helpers end
 
-      const intersectSegments = [[[2, 2], [2, -2]], [[-1, 1], [3, 1]]];
-      const notIntersectSegments = [[[-1, 1], [-1, -1]], [[1, 1], [1, -1]]];
+      const intersectSegments = [
+        [
+          [2, 2],
+          [2, -2]
+        ],
+        [
+          [-1, 1],
+          [3, 1]
+        ]
+      ];
+      const notIntersectSegments = [
+        [
+          [-1, 1],
+          [-1, -1]
+        ],
+        [
+          [1, 1],
+          [1, -1]
+        ]
+      ];
 
       await this.findSegmentsIntersection(intersectSegments[0], intersectSegments[1], [2, 1]);
 
@@ -71,7 +119,16 @@ contract('SegmentUtils', ([coreTeam]) => {
 
   describe('#compareSegments', () => {
     it('should correctly detect compareSegments', async function() {
-      const segments = [[[-1, 1], [1, -1]], [[-2, -2], [2, 2]]];
+      const segments = [
+        [
+          [-1, 1],
+          [1, -1]
+        ],
+        [
+          [-2, -2],
+          [2, 2]
+        ]
+      ];
 
       const BEFORE = 0;
       const AFTER = 1;
@@ -132,7 +189,10 @@ contract('SegmentUtils', ([coreTeam]) => {
         assert.equal(
           await this.pointOnSegment(
             [1.214004978082901197, 104.532601700706952753],
-            [[1.229172823951, 104.510070327669], [1.203772639856, 104.509898666292]]
+            [
+              [1.229172823951, 104.510070327669],
+              [1.203772639856, 104.509898666292]
+            ]
           ),
           false
         );
@@ -140,7 +200,10 @@ contract('SegmentUtils', ([coreTeam]) => {
         assert.equal(
           await this.pointOnSegment(
             [1.214004978082901197, 104.532601700706952753],
-            [[1.2036009784787893, 104.53199403360486], [1.227113390341401, 104.53336732462049]]
+            [
+              [1.2036009784787893, 104.53199403360486],
+              [1.227113390341401, 104.53336732462049]
+            ]
           ),
           true
         );
@@ -150,7 +213,10 @@ contract('SegmentUtils', ([coreTeam]) => {
             // w24qf67z3peh
             [1.200168589130044, 104.51813640072942],
             // w24r42h56n7d                                    w24qfgy56x3f
-            [[1.231060596182942388, 104.518523309379816054], [1.207720013335347173, 104.543261658400297163]]
+            [
+              [1.231060596182942388, 104.518523309379816054],
+              [1.207720013335347173, 104.543261658400297163]
+            ]
           ),
           false
         );
@@ -161,7 +227,10 @@ contract('SegmentUtils', ([coreTeam]) => {
             // w24qfsg5mp05
             [1.2132120039314032, 104.52826039865613],
             // w24r42h56n7d                                    w24qfgy56x3f
-            [[1.231060596182942388, 104.518523309379816054], [1.207720013335347173, 104.543261658400297163]]
+            [
+              [1.231060596182942388, 104.518523309379816054],
+              [1.207720013335347173, 104.543261658400297163]
+            ]
           ),
           false
         );
@@ -172,7 +241,10 @@ contract('SegmentUtils', ([coreTeam]) => {
             // w24qfmsve4y7
             [1.217695382181004489, 104.519599819276801756],
             // w24r42h56n7d                                    w24qfgy56x3f
-            [[1.231060596182942388, 104.518523309379816054], [1.207720013335347173, 104.543261658400297163]]
+            [
+              [1.231060596182942388, 104.518523309379816054],
+              [1.207720013335347173, 104.543261658400297163]
+            ]
           ),
           false
         );
@@ -183,7 +255,10 @@ contract('SegmentUtils', ([coreTeam]) => {
             // w24qgpndpt0z
             [1.225346988067031, 104.5551478676498],
             // w24qgpnehynz                             w24qgpnb8efb
-            [[1.2255240138620138, 104.55503789708018], [1.22508161701262, 104.55519346520305]]
+            [
+              [1.2255240138620138, 104.55503789708018],
+              [1.22508161701262, 104.55519346520305]
+            ]
           ),
           false
         );
@@ -193,7 +268,10 @@ contract('SegmentUtils', ([coreTeam]) => {
             // w24qgpndpt0z
             [1.225346988067031, 104.5551478676498],
             // w24qgpndqszh                             w24qgpnb8efb
-            [[1.2253880593925714, 104.55511333420873], [1.22508161701262, 104.55519346520305]]
+            [
+              [1.2253880593925714, 104.55511333420873],
+              [1.22508161701262, 104.55519346520305]
+            ]
           ),
           false
         );

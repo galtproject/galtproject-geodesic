@@ -80,16 +80,28 @@ contract('WeilerAtherton', ([coreTeam]) => {
       assert.equal(resultPolygonLength, '4');
 
       let resultPoint = await this.mockWeilerAthertonWeb3.methods.getResultPolygonPoint(0, 0).call();
-      assert.deepEqual(resultPoint.map(c => c.toString(10)), ['1214004978082901197', '104532601700706952753']);
+      assert.deepEqual(
+        resultPoint.map(c => c.toString(10)),
+        ['1214004978082901197', '104532601700706952753']
+      );
 
       resultPoint = await this.mockWeilerAthertonWeb3.methods.getResultPolygonPoint(0, 1).call();
-      assert.deepEqual(resultPoint.map(c => c.toString(10)), ['1227113390341000000', '104533367324620000000']);
+      assert.deepEqual(
+        resultPoint.map(c => c.toString(10)),
+        ['1227113390341000000', '104533367324620000000']
+      );
 
       resultPoint = await this.mockWeilerAthertonWeb3.methods.getResultPolygonPoint(0, 2).call();
-      assert.deepEqual(resultPoint.map(c => c.toString(10)), ['1228021425037782365', '104523095334564247262']);
+      assert.deepEqual(
+        resultPoint.map(c => c.toString(10)),
+        ['1228021425037782365', '104523095334564247262']
+      );
 
       resultPoint = await this.mockWeilerAthertonWeb3.methods.getResultPolygonPoint(0, 3).call();
-      assert.deepEqual(resultPoint.map(c => c.toString(10)), ['1215271437541000000', '104522552657872000000']);
+      assert.deepEqual(
+        resultPoint.map(c => c.toString(10)),
+        ['1215271437541000000', '104522552657872000000']
+      );
 
       // dev.highlightContour([ 'w24qfpvbmnkt', 'w24qf5ju3pkx', 'w24qfejgkp2p', 'w24qftn244vj', 'w24qfmpp2p00', 'w24qfrx3sxuc']);
       const subjectPolygonOutputLength = await this.mockWeilerAthertonWeb3.methods
@@ -98,22 +110,40 @@ contract('WeilerAtherton', ([coreTeam]) => {
       assert.equal(subjectPolygonOutputLength, '6');
 
       let subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(0).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1229172823951000000', '104510070327669000000']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1229172823951000000', '104510070327669000000']
+      );
 
       subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(1).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1203772639856000000', '104509898666292000000']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1203772639856000000', '104509898666292000000']
+      );
 
       subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(2).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1203600978479000000', '104531994033605000000']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1203600978479000000', '104531994033605000000']
+      );
 
       subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(3).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1214004978082901197', '104532601700706952753']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1214004978082901197', '104532601700706952753']
+      );
 
       subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(4).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1215271437541000000', '104522552657872000000']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1215271437541000000', '104522552657872000000']
+      );
 
       subjectPoint = await this.mockWeilerAthertonWeb3.methods.getSubjectPolygonOutputPoint(5).call();
-      assert.deepEqual(subjectPoint.map(c => c.toString(10)), ['1228021425037782365', '104523095334564247262']);
+      assert.deepEqual(
+        subjectPoint.map(c => c.toString(10)),
+        ['1228021425037782365', '104523095334564247262']
+      );
     });
   });
 });

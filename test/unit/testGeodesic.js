@@ -65,7 +65,10 @@ contract('Geodesic', () => {
     );
 
     assert.equal(notCachedFirstContour.length, firstContour.length);
-    assert.deepEqual(firstContour.map(geohashNumber => geohashNumber.toString(10)), notCachedFirstContour);
+    assert.deepEqual(
+      firstContour.map(geohashNumber => geohashNumber.toString(10)),
+      notCachedFirstContour
+    );
 
     await geodesic.cacheGeohashListToLatLonAndUtm(firstContour);
 

@@ -27,6 +27,7 @@
   "scripts": {
     "compile": "truffle compile",
     "eslint": "eslint .",
+    "eslint-fix": "eslint . --fix",
     "ethlint": "solium --dir .",
     "test": "truffle test --network test"
   },

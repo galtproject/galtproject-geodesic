@@ -1,4 +1,4 @@
-pragma solidity 0.5.10;
+pragma solidity ^0.5.13;
 
 import "../utils/SegmentUtils.sol";
 
@@ -9,9 +9,9 @@ contract MockSegmentUtils {
   event int8Result (int8 result);
 
   SegmentUtils.Sweepline sweepline;
-  
+
   constructor() public {
-    
+
   }
 
   function segmentsIntersect(int256[2][2] memory segment1, int256[2][2] memory segment2) public returns(bool) {
@@ -29,7 +29,7 @@ contract MockSegmentUtils {
   function setSweeplineX(int256 x) public {
     sweepline.x = x;
   }
-  
+
   function setSweeplinePosition(SegmentUtils.Position position) public {
     sweepline.position = position;
   }

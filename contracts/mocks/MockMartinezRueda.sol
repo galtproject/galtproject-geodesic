@@ -1,4 +1,4 @@
-pragma solidity 0.5.10;
+pragma solidity ^0.5.13;
 
 import "../utils/MartinezRueda.sol";
 
@@ -7,13 +7,13 @@ contract MockMartinezRueda {
   using MartinezRueda for MartinezRueda.State;
 
   MartinezRueda.State private martinezRueda;
-  
+
   event LogSetSegment(int256[2][2] firstItem);
-  
+
   constructor() public {
     martinezRueda.initMartinezRueda();
   }
-  
+
   function addPointToSubject(int256[2] memory point) public {
     martinezRueda.subject.points.push(point);
   }
@@ -21,7 +21,7 @@ contract MockMartinezRueda {
   function addPointToClipping(int256[2] memory point) public {
     martinezRueda.clipping.points.push(point);
   }
-  
+
   function processAllPolygons() public {
     martinezRueda.processAllPolygons();
   }
@@ -65,7 +65,7 @@ contract MockMartinezRueda {
   function getResultContourItemLength(uint256 contourIndex) public view returns(uint256) {
     return martinezRueda.resultContours[contourIndex].length;
   }
-  
+
   function getResultContourPoint(uint256 contourIndex, uint256 pointIndex) public view returns(int256[2] memory) {
     return martinezRueda.resultContours[contourIndex][pointIndex];
   }

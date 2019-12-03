@@ -7,29 +7,23 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@galtproject/eslint-config-galt": "git+https://github.com/galtspace/eslint-config-galt.git",
-    "@galtproject/libs": "git+ssh://git@github.com/galtspace/galtproject-libs.git#33afd8b",
-    "@galtproject/math": "git+ssh://git@github.com/galtspace/galtproject-math.git#a1370d7",
+    "@galtproject/eslint-config-galt": "^1.1.0",
+    "@galtproject/libs": "git+ssh://git@github.com/galtspace/galtproject-libs.git#7c78e38",
+    "@galtproject/math": "git+ssh://git@github.com/galtspace/galtproject-math.git#e235c33",
     "@galtproject/utils": "git://github.com/galtspace/galtproject-utils-js.git#b600d50",
-    "eslint": "^5.12.1",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-prettier": "^3.0.0",
-    "ethlint": "1.2.4",
-    "ganache-core": "2.5.5",
+    "ethlint": "1.2.5",
+    "ganache-core": "2.8.0",
     "lodash": "^4.17.11",
-    "openzeppelin-solidity": "2.2.0",
+    "@openzeppelin/contracts": "2.4.0",
     "p-iteration": "^1.1.7",
-    "prettier": "1.17.0",
-    "truffle": "5.0.37",
+    "truffle": "5.1.2",
     "typedarray-to-buffer": "^3.1.5",
-    "web3": "1.0.0-beta.37"
+    "web3": "1.2.4"
   },
   "engines": {
     "node": ">=10.15.1"
   },
-  "repository": "https://github.com/galtspace/galtproject-geodesic",
+  "repository": "https://github.com/galtproject/galtproject-geodesic",
   "scripts": {
     "compile": "truffle compile",
     "eslint": "eslint .",

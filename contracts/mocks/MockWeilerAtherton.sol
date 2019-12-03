@@ -1,4 +1,4 @@
-pragma solidity 0.5.10;
+pragma solidity ^0.5.13;
 
 import "../utils/WeilerAtherton.sol";
 
@@ -7,11 +7,11 @@ contract MockWeilerAtherton {
   using WeilerAtherton for WeilerAtherton.State;
 
   WeilerAtherton.State private weilerAtherton;
-  
+
   constructor() public {
     weilerAtherton.initWeilerAtherton();
   }
-  
+
   function addPointToSubjectPolygon(int256[2] memory point) public {
     weilerAtherton.martinezRueda.subject.points.push(point);
   }
@@ -19,7 +19,7 @@ contract MockWeilerAtherton {
   function addPointToClippingPolygon(int256[2] memory point) public {
     weilerAtherton.martinezRueda.clipping.points.push(point);
   }
-  
+
   function initSubjectPolygon() public {
     weilerAtherton.initPolygon(weilerAtherton.martinezRueda.subject, weilerAtherton.subjectPolygon);
   }
@@ -40,7 +40,7 @@ contract MockWeilerAtherton {
   function addClippingPolygonSegments() public {
     weilerAtherton.prepareClippingPolygon();
   }
-  
+
   function processMartinezRueda() public {
     weilerAtherton.processMartinezRueda();
   }

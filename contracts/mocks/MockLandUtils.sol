@@ -1,4 +1,4 @@
-pragma solidity 0.5.10;
+pragma solidity ^0.5.13;
 
 import "../utils/LandUtils.sol";
 
@@ -6,11 +6,11 @@ import "../utils/LandUtils.sol";
 contract MockLandUtils {
   event LogPointResult(int256[2] result);
   event LogGeohash5Result(uint256 result);
-  
+
   constructor() public {
 
   }
-  
+
   function geohash5ToLatLonArr(uint256 geohash) public returns(int256[2] memory point) {
     point = LandUtils.geohash5ToLatLonArr(geohash);
     emit LogPointResult(point);

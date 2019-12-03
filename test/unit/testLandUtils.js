@@ -20,10 +20,10 @@ contract('LandUtils', ([deployer]) => {
         from: deployer
       });
 
-      assert.deepEqual(res.logs[0].args.result.map(coor => coor.toString(10)), [
-        '1178970336914062500',
-        '104513626098632812500'
-      ]);
+      assert.deepEqual(
+        res.logs[0].args.result.map(coor => coor.toString(10)),
+        ['1178970336914062500', '104513626098632812500']
+      );
     });
   });
 

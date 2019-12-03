@@ -28,21 +28,66 @@ module.exports = async function(callback) {
 
   const mockSegmentUtils = await MockSegmentUtils.new({ from: coreTeam });
 
-  let intersectSegments = [[[2, 2], [2, -2]], [[-1, 1], [3, 1]]];
-  let notIntersectSegments = [[[-1, 1], [-1, -1]], [[1, 1], [1, -1]]];
+  let intersectSegments = [
+    [
+      [2, 2],
+      [2, -2]
+    ],
+    [
+      [-1, 1],
+      [3, 1]
+    ]
+  ];
+  let notIntersectSegments = [
+    [
+      [-1, 1],
+      [-1, -1]
+    ],
+    [
+      [1, 1],
+      [1, -1]
+    ]
+  ];
 
   await segmentsIntersect(intersectSegments[0], intersectSegments[1]);
 
   await segmentsIntersect(notIntersectSegments[0], notIntersectSegments[1]);
 
-  intersectSegments = [[[2, 2], [2, -2]], [[-1, 1], [3, 1]]];
-  notIntersectSegments = [[[-1, 1], [-1, -1]], [[1, 1], [1, -1]]];
+  intersectSegments = [
+    [
+      [2, 2],
+      [2, -2]
+    ],
+    [
+      [-1, 1],
+      [3, 1]
+    ]
+  ];
+  notIntersectSegments = [
+    [
+      [-1, 1],
+      [-1, -1]
+    ],
+    [
+      [1, 1],
+      [1, -1]
+    ]
+  ];
 
   await findSegmentsIntersection(intersectSegments[0], intersectSegments[1], [2, 1]);
 
   await findSegmentsIntersection(notIntersectSegments[0], notIntersectSegments[1], [0, 0]);
 
-  const segments = [[[-1, 1], [1, -1]], [[-2, -2], [2, 2]]];
+  const segments = [
+    [
+      [-1, 1],
+      [1, -1]
+    ],
+    [
+      [-2, -2],
+      [2, 2]
+    ]
+  ];
 
   const BEFORE = 0;
   const AFTER = 1;

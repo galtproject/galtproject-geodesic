@@ -29,7 +29,7 @@
 
 :page_with_curl: **For more information read the [Whitepaper](https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/en/Whitepaper.md)**
 
-:construction: **@galtproject-core stage: Testnet**
+:construction: **@galtproject-geodesic stage: Testnet**
 
 At the moment, [@galtproject-geodesic](https://github.com/galtproject/galtproject-geodesic) contracts are deployed in our private Testnet(RPC: https://https-rpc.testnet-58.galtproject.io/, Explorer: https://explorer.testnet-58.galtproject.io/), we are preparing a deployment of the first version of contracts on the mainnet.
 

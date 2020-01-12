@@ -1,8 +1,9 @@
-<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/images/Artboard2.png" alt="galtproject/geodesic" width="400"/></p>
 
 <h3 align="center">Galt•Project Geodesic Contracts (@galtproject/geodesic)</h3>
 <div align="center">
 </div>
+
+<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/images/Artboard2.png" alt="galtproject/geodesic" width="700"/></p>
 
 <div align="center">
 <a href="https://travis-ci.org/galtspace/galtproject-geodesic" targe="_blank"><img alt="pipeline status" src="https://travis-ci.org/galtspace/galtproject-geodesic.svg?branch=master" /></a>

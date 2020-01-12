@@ -27,7 +27,7 @@
 
 [@galtproject-geodesic](https://github.com/galtproject/galtproject-geodesic) repo contains libraries for performing the coordinate transformation operation, as well as various implementations of computational geometry algorithms for operations with polygons.
 
-:page_with_curl: **For more information read the [Whitepaper](https://github.com/galtproject/galtproject-docs/blob/master/en/Whitepaper.md)**
+:page_with_curl: **For more information read the [Whitepaper](https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/en/Whitepaper.md)**
 
 :construction: **@galtproject-core stage: Testnet**
 

@@ -1,9 +1,6 @@
-<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/master/images/Artboard2.png" alt="logo-black-360" width="400"/></p>
-# Galt Project Geodesic Contracts (@galtproject/geodesic)
+<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/whitepaper/master/images/Artboard2.png" alt="logo-black-360" width="400"/></p>
 
-
-
-<h3 align="center">Galt•Project Private Propety Registry Contracts (@galtproject-private-property-registry)</h3>
+<h3 align="center">Galt•Project Geodesic Contracts (@galtproject/geodesic)</h3>
 <div align="center">
 </div>
 

@@ -1,5 +1,5 @@
 
-<h3 align="center">Galt•Project Geodesic Contracts (@galtproject/geodesic)</h3>
+<h3 align="center">Galt•Project Geodesic Libraries (@galtproject/geodesic)</h3>
 <div align="center">
 </div>
 

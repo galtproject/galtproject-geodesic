@@ -31,7 +31,7 @@
 
 :construction: **@galtproject-core stage: Testnet**
 
-At the moment, [@galtproject-core](https://github.com/galtproject/galtproject-core/) contracts are deployed in our private Testnet(RPC: https://https-rpc.testnet-58.galtproject.io/, Explorer: https://explorer.testnet-58.galtproject.io/), we are preparing a deployment of the first version of contracts on the mainnet.
+At the moment, [@galtproject-geodesic](https://github.com/galtproject/galtproject-geodesic) contracts are deployed in our private Testnet(RPC: https://https-rpc.testnet-58.galtproject.io/, Explorer: https://explorer.testnet-58.galtproject.io/), we are preparing a deployment of the first version of contracts on the mainnet.
 
 :bomb: **Security review status: Unaudited**
 

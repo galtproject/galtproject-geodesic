@@ -25,7 +25,7 @@
 
 **Galt Project is an international decentralized land and real estate property registry governed by DAO (Decentralized autonomous organization) and self-governance protocol for communities of homeowners built on top of Ethereum blockchain.**
 
-[@galtproject-geodesic](https://github.com/galtproject/galtproject-geodesic) repo contains libraries for performing the coordinate transformation operation, as well as various implementations of computational geometry algorithms for operations with polygons.
+[@galtproject-geodesic](https://github.com/galtproject/galtproject-geodesic) repo contains libraries for coordinate transformation operations, as well as various implementations of computational geometry algorithms for operations with polygons.
 
 :page_with_curl: **For more information read the [Whitepaper](https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/en/Whitepaper.md)**
 

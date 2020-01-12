@@ -3,7 +3,7 @@
 <div align="center">
 </div>
 
-<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/images/Artboard2.png" alt="galtproject/geodesic" width="700"/></p>
+<p align="center"> <img src="https://github.com/galtproject/galtproject-docs/blob/master/whitepaper/images/Artboard2.png" alt="galtproject/geodesic" width="500"/></p>
 
 <div align="center">
 <a href="https://travis-ci.org/galtspace/galtproject-geodesic" targe="_blank"><img alt="pipeline status" src="https://travis-ci.org/galtspace/galtproject-geodesic.svg?branch=master" /></a>

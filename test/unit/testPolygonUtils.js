@@ -33,6 +33,7 @@ contract('PolygonUtils', ([coreTeam]) => {
       const res = await this.mockPolygonUtils.getArea();
       const solArea = weiToEther(res.logs[0].args.result);
       const diff = Math.abs(Math.abs(solArea) - Math.abs(jsArea));
+      console.log('diff', solArea, jsArea, diff);
       const diffPercent = (diff / jsArea) * 100;
 
       assert.isBelow(diffPercent, 0.006);

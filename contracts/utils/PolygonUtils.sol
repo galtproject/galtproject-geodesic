@@ -132,7 +132,7 @@ library PolygonUtils {
         firstPointZone = zone;
         firstScale = (scale / int(10 ** 13)) * int(10 ** 13);
       } else {
-        if(!differentScales) {
+        if (!differentScales) {
           differentScales = firstScale != (scale / int(10 ** 13)) * int(10 ** 13);
         }
       }
@@ -147,7 +147,7 @@ library PolygonUtils {
       area *= - 1;
     }
 
-    if(differentScales) {
+    if (differentScales) {
       // if scale is different with 0.00001 accuracy - apply scale
       result = (uint(area * 1 ether) / (uint(scaleSum / int(_polygon.points.length)) ** uint(2)) / 1 ether) / 2;
     } else {

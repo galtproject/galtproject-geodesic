@@ -113,8 +113,6 @@ library PolygonUtils {
     ((thirdPoint[0] - secondPoint[0]) * (thirdPoint[1] + secondPoint[1]))) > 0;
   }
 
-//  event LogScale(int cutScale, int fullScale);
-
   function getUtmArea(UtmPolygon memory _polygon) internal pure returns (uint result) {
     int area = 0;
     // Accumulates area in the loop
@@ -138,8 +136,6 @@ library PolygonUtils {
           differentScales = firstScale != (scale / int(10 ** 13)) * int(10 ** 13);
         }
       }
-
-//      emit LogScale((scale / int(10 ** 13)) * int(10 ** 13), scale);
 
       require(zone == firstPointZone, "All points should belongs to same zone");
 

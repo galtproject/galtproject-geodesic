@@ -10,7 +10,7 @@
     "@galtproject/eslint-config-galt": "^1.1.0",
     "@galtproject/libs": "git+ssh://git@github.com/galtspace/galtproject-libs.git#7c78e38",
     "@galtproject/math": "git+ssh://git@github.com/galtspace/galtproject-math.git#e235c33",
-    "@galtproject/utils": "git://github.com/galtspace/galtproject-utils-js.git#b600d50",
+    "@galtproject/utils": "git://github.com/galtspace/galtproject-utils-js.git#2572bc6",
     "ethlint": "1.2.5",
     "ganache-core": "2.8.0",
     "lodash": "^4.17.11",

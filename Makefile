@@ -15,6 +15,7 @@ test:
 	-npm test
 	tput bel
 
+ctest: compile test
 
 benchmark:
 	for file in `ls ./benchmark`; do echo \\n$${file}\\n; ./node_modules/.bin/truffle exec benchmark/$${file} --network test -c; done

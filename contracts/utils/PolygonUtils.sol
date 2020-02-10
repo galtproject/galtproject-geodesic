@@ -120,6 +120,8 @@ library PolygonUtils {
     // The last vertex is the 'previous' one to the first
 
     int scaleSum = 0;
+    int firstScale;
+    bool differentScales = false;
     int firstPointZone;
     for (uint i = 0; i < _polygon.points.length; i++) {
       area += ((_polygon.points[j][0] + _polygon.points[i][0]) * (_polygon.points[j][1] - _polygon.points[i][1])) / 1 ether;
@@ -128,6 +130,11 @@ library PolygonUtils {
 
       if (i == 0) {
         firstPointZone = zone;
+        firstScale = (scale / int(10 ** 13)) * int(10 ** 13);
+      } else {
+        if (!differentScales) {
+          differentScales = firstScale != (scale / int(10 ** 13)) * int(10 ** 13);
+        }
       }
 
       require(zone == firstPointZone, "All points should belongs to same zone");
@@ -140,7 +147,13 @@ library PolygonUtils {
       area *= - 1;
     }
 
-    result = (uint(area * 1 ether) / ((uint(scaleSum / int(_polygon.points.length)) ** uint(2)) / 1 ether)) / 2;
+    if (differentScales) {
+      // if scale is different with 0.00001 accuracy - apply scale
+      result = (uint(area * 1 ether) / (uint(scaleSum / int(_polygon.points.length)) ** uint(2)) / 1 ether) / 2;
+    } else {
+      // else if scale the same - don't apply scale
+      result = uint(area / 2);
+    }
   }
 
   function rad(int angle) internal pure returns (int) {

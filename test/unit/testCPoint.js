@@ -1,5 +1,6 @@
 const CPointUtils = artifacts.require('./utils/CPointUtils.sol');
 const CPointUtilsPublic = artifacts.require('./utils/CPointUtilsPublic.sol');
+const jsUtils = require('@galtproject/utils').contractPoint;
 
 CPointUtils.numberFormat = 'String';
 CPointUtilsPublic.numberFormat = 'String';
@@ -28,6 +29,38 @@ contract('CPoint', () => {
   const bPointString = '1461487345811774603843966527898531095244979878526';
   const aPoint = { lat: ether(10.1112223334), lon: ether(80.5556667778), height: 11 };
   const bPoint = { lat: ether(-10.1112223334), lon: ether(-80.5556667778), height: -42000 };
+
+  describe('solidity and js calculation results comparision', () => {
+    it('should provide the same results for decoding positive values', async function() {
+      const contractResult = await cPoint.cPointToLatLonHeight(aPointString);
+      const jsResult = jsUtils.decodeToLatLonHeight(aPointString);
+      assert.equal(contractResult.lat, ether(jsResult.lat));
+      assert.equal(contractResult.lon, ether(jsResult.lon));
+      assert.equal(contractResult.height, jsResult.height);
+    });
+
+    it('should provide the same results for decoding negative values', async function() {
+      const contractResult = await cPoint.cPointToLatLonHeight(bPointString);
+      const jsResult = jsUtils.decodeToLatLonHeight(bPointString);
+      assert.equal(contractResult.lat, ether(jsResult.lat));
+      assert.equal(contractResult.lon, ether(jsResult.lon));
+      assert.equal(contractResult.height, jsResult.height);
+    });
+
+    it('should provide the same results for encoding positive values', async function() {
+      assert.equal(
+        await cPoint.latLonHeightToCPoint(aPoint.lat, aPoint.lon, aPoint.height),
+        jsUtils.encodeFromLatLngHeight(10.1112223334, 80.5556667778, 11)
+      );
+    });
+
+    it('should provide the same results for encoding negative values', async function() {
+      assert.equal(
+        await cPoint.latLonHeightToCPoint(bPoint.lat, bPoint.lon, bPoint.height),
+        jsUtils.encodeFromLatLngHeight(-10.1112223334, -80.5556667778, -42000)
+      );
+    });
+  });
 
   describe('positive', () => {
     it('#cPointToLat()', async function() {

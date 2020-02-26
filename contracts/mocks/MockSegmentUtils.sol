@@ -41,7 +41,7 @@ contract MockSegmentUtils {
   }
 
   function pointOnSegment(int[2] memory point, int[2] memory sp1, int[2] memory sp2) public returns(bool) {
-    bool result = SegmentUtils.pointOnSegment(point, sp1, sp2);
+    bool result = SegmentUtils.pointOnSegmentTx(point, sp1, sp2);
     emit BoolResult(result);
     return result;
   }

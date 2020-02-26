@@ -7,9 +7,13 @@ compile: cleanup
 	./node_modules/truffle/build/cli.bundled.js compile
 	tput bel
 
-validate:
+lint:
 	npm run ethlint
 	npm run eslint
+
+lint-fix:
+	npm run ethlint
+	npm run eslint-fix
 
 test:
 	-npm test

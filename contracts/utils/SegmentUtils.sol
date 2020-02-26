@@ -15,8 +15,8 @@ import "./VectorUtils.sol";
 
 library SegmentUtils {
 
-  int256 internal constant EPS = 1000000000;
-  int256 internal constant POS_EPS = 10000000000000000000000;
+  int256 internal constant EPS = 100000000;
+  int256 internal constant POS_EPS = 25000000000000000000000000;
 
   enum Position {
     BEFORE,
@@ -158,6 +158,28 @@ library SegmentUtils {
     } else {
       return 1;
     }
+  }
+
+  event AbsRes(int256 res);
+  function pointOnSegmentTx(int[2] memory point, int[2] memory sp1, int[2] memory sp2) internal returns (bool) {
+    // compare versus epsilon for floating point values, or != 0 if using integers
+    int256 absRes = MathUtils.abs((point[1] - sp1[1]) * (sp2[0] - sp1[0]) - (point[0] - sp1[0]) * (sp2[1] - sp1[1]));
+    emit AbsRes(absRes);
+    if (absRes > POS_EPS) {
+      return false;
+    }
+
+    int dotproduct = (point[0] - sp1[0]) * (sp2[0] - sp1[0]) + (point[1] - sp1[1]) * (sp2[1] - sp1[1]);
+    if (dotproduct < 0) {
+      return false;
+    }
+
+    int squaredlengthba = (sp2[0] - sp1[0]) * (sp2[0] - sp1[0]) + (sp2[1] - sp1[1]) * (sp2[1] - sp1[1]);
+    if (dotproduct > squaredlengthba) {
+      return false;
+    }
+
+    return true;
   }
 
   function pointOnSegment(int[2] memory point, int[2] memory sp1, int[2] memory sp2) internal pure returns (bool) {

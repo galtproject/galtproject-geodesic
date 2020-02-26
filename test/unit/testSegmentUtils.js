@@ -1,4 +1,5 @@
 const MockSegmentUtils = artifacts.require('./mocks/MockSegmentUtils.sol');
+const galt = require('@galtproject/utils');
 
 const { initHelperWeb3, initHelperArtifacts, ether, getSegmentUtilsLib, clearLibCache } = require('../helpers');
 
@@ -197,15 +198,47 @@ contract('SegmentUtils', ([coreTeam]) => {
           false
         );
 
+        console.log('point', galt.contractPoint.encodeFromLatLng(40.7560341032, -73.9656699285));
+        console.log(
+          'segment',
+          galt.contractPoint.encodeFromLatLng(40.7560485796, -73.9657051325),
+          galt.contractPoint.encodeFromLatLng(40.7560153094, -73.9656260073)
+        );
+
         assert.equal(
           await this.pointOnSegment(
-            [1.214004978082901197, 104.532601700706952753],
+            // y shift: 0 meters
+            [40.7560669086, -73.9657481913],
             [
-              [1.2036009784787893, 104.53199403360486],
-              [1.227113390341401, 104.53336732462049]
+              [40.7560485796, -73.9657051325],
+              [40.756082385, -73.9657839884]
             ]
           ),
           true
+        );
+
+        assert.equal(
+          await this.pointOnSegment(
+            // y shift: 0.01 meters
+            [40.7560669873, -73.9657481336],
+            [
+              [40.7560485796, -73.9657051325],
+              [40.756082385, -73.9657839884]
+            ]
+          ),
+          true
+        );
+
+        assert.equal(
+          await this.pointOnSegment(
+            // y shift: 0.1 meters
+            [40.7560676952, -73.9657476141],
+            [
+              [40.7560485796, -73.9657051325],
+              [40.756082385, -73.9657839884]
+            ]
+          ),
+          false
         );
 
         assert.equal(
